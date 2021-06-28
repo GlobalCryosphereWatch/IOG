@@ -1,3 +1,3 @@
 # GCW Interoperabiolity Guidelines Document
 
-Details to be added.
+The purpose of the GCW Interoperability Guidelines (IOG) is to provide an overview of the GCW Data Portal and identify interoperability approaches that simplifies integration of data from a number of sources to a unified virtual data management system.  
