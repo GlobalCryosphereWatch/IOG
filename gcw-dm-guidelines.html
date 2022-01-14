@@ -1,0 +1,1862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.17">
+<meta name="author" content="Date: 2022-01-14">
+<title>Technical documentation: Guidance for data centres contributing to GCW</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<style>
+/*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/* Uncomment the following line when using as a custom stylesheet */
+/* @import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700"; */
+html{font-family:sans-serif;-webkit-text-size-adjust:100%}
+a{background:none}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+b,strong{font-weight:bold}
+abbr{font-size:.9em}
+abbr[title]{cursor:help;border-bottom:1px dotted #dddddf;text-decoration:none}
+dfn{font-style:italic}
+hr{height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+audio,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type=checkbox],input[type=radio]{padding:0}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,::before,::after{box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;line-height:1;position:relative;cursor:auto;-moz-tab-size:4;-o-tab-size:4;tab-size:4;word-wrap:anywhere;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+img,object,svg{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:0}
+p{line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #dddddf;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
+ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
+ul.square{list-style-type:square}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:1px solid #dedede;word-wrap:normal}
+table thead,table tfoot{background:#f7f8f7}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt{background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.center{margin-left:auto;margin-right:auto}
+.stretch{width:100%}
+.clearfix::before,.clearfix::after,.float-group::before,.float-group::after{content:" ";display:table}
+.clearfix::after,.float-group::after{clear:both}
+:not(pre).nobreak{word-wrap:normal}
+:not(pre).nowrap{white-space:nowrap}
+:not(pre).pre-wrap{white-space:pre-wrap}
+:not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
+pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
+pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
+pre>code{display:block}
+pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
+em em{font-style:normal}
+strong strong{font-weight:400}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background:#f7f7f7;border:1px solid #ccc;border-radius:3px;box-shadow:0 1px 0 rgba(0,0,0,.2),inset 0 0 0 .1em #fff;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+b.button::before,b.button::after{position:relative;top:-1px;font-weight:400}
+b.button::before{content:"[";padding:0 3px 0 2px}
+b.button::after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin:0 auto;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header::before,#header::after,#content::before,#content::after,#footnotes::before,#footnotes::after,#footer::before,#footer::after{content:" ";display:table}
+#header::after,#content::after,#footnotes::after,#footer::after{clear:both}
+#content{margin-top:1.25em}
+#content::before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
+#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span::before{content:"\00a0\2013\00a0"}
+#header .details br+span.author::before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark::before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber::after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #dddddf;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #e7e7e9;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+#toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9;left:auto;right:0}}
+@media screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border:1px solid #e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:none;background:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:hsla(0,0%,100%,.8);line-height:1.44}
+#content{margin-bottom:.625em}
+.sect1{padding-bottom:.625em}
+@media screen and (min-width:768px){#content{margin-bottom:1.25em}
+.sect1{padding-bottom:1.25em}}
+.sect1:last-child{padding-bottom:0}
+.sect1+.sect1{border-top:1px solid #e7e7e9}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor::before,h2>a.anchor::before,h3>a.anchor::before,#toctitle>a.anchor::before,.sidebarblock>.content>.title>a.anchor::before,h4>a.anchor::before,h5>a.anchor::before,h6>a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+details{margin-left:1.25rem}
+details>summary{cursor:pointer;display:block;position:relative;line-height:1.6;margin-bottom:.625rem;outline:none;-webkit-tap-highlight-color:transparent}
+details>summary::-webkit-details-marker{display:none}
+details>summary::before{content:"";border:solid transparent;border-left:solid;border-width:.3em 0 .3em .5em;position:absolute;top:.5em;left:-1.25rem;transform:translateX(15%)}
+details[open]>summary::before{border:solid transparent;border-top:solid;border-width:.5em .3em 0;transform:translateY(15%)}
+details>summary::after{content:"";width:1.25rem;height:1em;position:absolute;top:.3em;left:-1.25rem}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
+.paragraph.lead>p,#preamble>.sectionbody>[class=paragraph]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
+.exampleblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child{margin-bottom:0}
+.sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
+.sidebarblock>:first-child{margin-top:0}
+.sidebarblock>:last-child{margin-bottom:0}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
+@media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
+@media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
+.literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class=highlight],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
+.literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
+.listingblock>.content{position:relative}
+.listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
+.listingblock:hover code[data-lang]::before{display:block}
+.listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
+.listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.prettyprint{background:#f7f7f8}
+pre.prettyprint .linenums{line-height:1.45;margin-left:2em}
+pre.prettyprint li{background:none;list-style-type:inherit;padding-left:0}
+pre.prettyprint li code[data-lang]::before{opacity:1}
+pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
+table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
+table.linenotable td.code{padding-left:.75em}
+table.linenotable td.linenos,pre.pygments .linenos{border-right:1px solid;opacity:.35;padding-right:.5em;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+pre.pygments span.linenos{display:inline-block;margin-right:.75em}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote::before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.75em;margin-right:.5ex;text-align:right}
+.verseblock{margin:0 1em 1.25em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans-serif;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract blockquote::before,.quoteblock.excerpt blockquote::before,.quoteblock .quoteblock blockquote::before{display:none}
+.quoteblock.abstract blockquote,.quoteblock.abstract p,.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{line-height:1.6;word-spacing:0}
+.quoteblock.abstract{margin:0 1em 1.25em;display:block}
+.quoteblock.abstract>.title{margin:0 0 .375em;font-size:1.15em;text-align:center}
+.quoteblock.excerpt>blockquote,.quoteblock .quoteblock{padding:0 0 .25em 1em;border-left:.25em solid #dddddf}
+.quoteblock.excerpt,.quoteblock .quoteblock{margin-left:0}
+.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
+.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;font-size:.85rem;text-align:left;margin-right:0}
+p.tableblock:last-child{margin-bottom:0}
+td.tableblock>.content{margin-bottom:1.25em;word-wrap:anywhere}
+td.tableblock>.content>:last-child{margin-bottom:-1.25em}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all>*>tr>*{border-width:1px}
+table.grid-cols>*>tr>*{border-width:0 1px}
+table.grid-rows>*>tr>*{border-width:1px 0}
+table.frame-all{border-width:1px}
+table.frame-ends{border-width:1px 0}
+table.frame-sides{border-width:0 1px}
+table.frame-none>colgroup+*>:first-child>*,table.frame-sides>colgroup+*>:first-child>*{border-top-width:0}
+table.frame-none>:last-child>:last-child>*,table.frame-sides>:last-child>:last-child>*{border-bottom-width:0}
+table.frame-none>*>tr>:first-child,table.frame-ends>*>tr>:first-child{border-left-width:0}
+table.frame-none>*>tr>:last-child,table.frame-ends>*>tr>:last-child{border-right-width:0}
+table.stripes-all>*>tr,table.stripes-odd>*>tr:nth-of-type(odd),table.stripes-even>*>tr:nth-of-type(even),table.stripes-hover>*>tr:hover{background:#f8f8f7}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+li>p:empty:only-child::before{content:"";display:inline-block}
+ul.checklist>li>p:first-child{margin-left:-1em}
+ul.checklist>li>p:first-child>.fa-square-o:first-child,ul.checklist>li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist>li>p:first-child>input[type=checkbox]:first-child{margin-right:.25em}
+ul.inline{display:flex;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
+ul.inline>li{margin-left:1.25em}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+td.hdlist2{word-wrap:anywhere}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
+.colist td:not([class]):first-child img{max-width:none}
+.colist td:not([class]):last-child{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:4px solid #fff;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background:#00fafa}
+.black{color:#000}
+.black-background{background:#000}
+.blue{color:#0000bf}
+.blue-background{background:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background:#fa00fa}
+.gray{color:#606060}
+.gray-background{background:#7d7d7d}
+.green{color:#006000}
+.green-background{background:#007d00}
+.lime{color:#00bf00}
+.lime-background{background:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background:#7d0000}
+.navy{color:#000060}
+.navy-background{background:#00007d}
+.olive{color:#606000}
+.olive-background{background:#7d7d00}
+.purple{color:#600060}
+.purple-background{background:#7d007d}
+.red{color:#bf0000}
+.red-background{background:#fa0000}
+.silver{color:#909090}
+.silver-background{background:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background:#fafa00}
+span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);border-radius:50%;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]::after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content,span.alt,summary{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@page{margin:1.25cm .75cm}
+@media print{*{box-shadow:none!important;text-shadow:none!important}
+html{font-size:80%}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]{border-bottom:1px dotted}
+abbr[title]::after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+thead{display:table-header-group}
+svg{max-width:100%}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#header,#content,#footnotes,#footer{max-width:none}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span::before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]::before{display:block}
+#footer{padding:0 .9375em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+@media amzn-kf8,print{#header>h1:first-child{margin-top:1.25rem}
+.sect1{padding:0!important}
+.sect1+.sect1{border:0}
+#footer{background:none}
+#footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
+@media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+</style>
+</head>
+<body class="book">
+<div id="header">
+<h1>Technical documentation: Guidance for data centres contributing to GCW</h1>
+<div class="details">
+<span id="author" class="author">Date: 2022-01-14</span><br>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div style="page-break-after: always;"></div>
+<h2 id="_versions" class="discrete">Versions</h2>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50%;">
+<col style="width: 16.6668%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Version</th>
+<th class="tableblock halign-left valign-top">Date</th>
+<th class="tableblock halign-left valign-top">Comment</th>
+<th class="tableblock halign-left valign-top">Responsible</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.x</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">202?-??-??</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Many updates&#8230;&#8203;</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Øystein Godøy</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2017-12-31</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A major rewrite with restructuring of the content,
+rephrasing requirements and addition of information on both the GCW
+Portal and the GCW/SLF software package.</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Øystein Godøy</p>
+</div>
+<div class="paragraph">
+<p>Joel Fiddes</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2017-09-06</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Minor edits, correction of typos and addition of
+links.</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Joel Fiddes</p>
+</div>
+<div class="paragraph">
+<p>Øystein Godøy</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2017-03-27</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Minor edits on OPeNDAP and formats.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Øystein Godøy</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2016-06-20</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Included comments from Joel Fiddes.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Joel Fiddes,
+Øystein Godøy</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2015-11-25</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">First draft for internal discussion.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Øystein Godøy</p></td>
+</tr>
+</tbody>
+</table>
+<div id="toc" class="toc">
+<div id="toctitle" class="title">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#introduction">1. Introduction</a>
+<ul class="sectlevel2">
+<li><a href="#background">1.1. Background</a></li>
+<li><a href="#scope">1.2. Scope</a></li>
+<li><a href="#intended-audience">1.3. Intended audience</a></li>
+<li><a href="#applicable-documents">1.4. Applicable documents</a></li>
+</ul>
+</li>
+<li><a href="#an-outline-of-the-gcw-portal">2. An outline of the GCW Portal</a>
+<ul class="sectlevel2">
+<li><a href="#background-1">2.1. Background</a></li>
+<li><a href="#the-concept-of-metadata">2.2. The concept of metadata</a></li>
+<li><a href="#types-of-contributing-data-centres">2.3. Types of contributing data centres</a>
+<ul class="sectlevel3">
+<li><a href="#cryonet">2.3.1. CryoNet</a></li>
+<li><a href="#other">2.3.2. Other</a></li>
+</ul>
+</li>
+<li><a href="#quick-reference-to-recommended-interfaces-and-standards">2.4. Quick reference to recommended interfaces and standards</a></li>
+</ul>
+</li>
+<li><a href="#interoperability-interfaces">3. Interoperability interfaces</a>
+<ul class="sectlevel2">
+<li><a href="#discovery-metadata">3.1. Discovery Metadata</a>
+<ul class="sectlevel3">
+<li><a href="#background-2">3.1.1. Background</a></li>
+<li><a href="#exchange-mechanisms-for-discovery-metadata">3.1.2. Exchange mechanisms for discovery metadata</a>
+<ul class="sectlevel4">
+<li><a href="#introduction-1">3.1.2.1. Introduction</a></li>
+<li><a href="#oai-pmh">3.1.2.2. OAI-PMH</a></li>
+<li><a href="#ogc-csw">3.1.2.3. OGC CSW</a></li>
+<li><a href="#other-1">3.1.2.4. Other</a></li>
+</ul>
+</li>
+<li><a href="#structures-for-discovery-metadata">3.1.3. Structures for discovery metadata</a>
+<ul class="sectlevel4">
+<li><a href="#iso19115">3.1.3.1. ISO19115<sup class="footnote">[1]</sup></a></li>
+<li><a href="#gcmd-dif">3.1.3.2. GCMD DIF</a></li>
+<li><a href="#other-2">3.1.3.3. Other</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#data">4. Data</a>
+<ul class="sectlevel2">
+<li><a href="#background-3">4.1. Background</a></li>
+<li><a href="#exchange-mechanisms-for-data">4.2. Exchange mechanisms for data</a>
+<ul class="sectlevel3">
+<li><a href="#introduction-2">4.2.1. Introduction</a></li>
+<li><a href="#httpftp">4.2.2. HTTP/FTP</a></li>
+<li><a href="#opendap">4.2.3. OPeNDAP</a></li>
+<li><a href="#ogc-wfs">4.2.4. OGC WFS</a></li>
+<li><a href="#ogc-wcs">4.2.5. OGC WCS</a></li>
+<li><a href="#ogc-wms-map-projections">4.2.6. OGC WMS map projections</a></li>
+</ul>
+</li>
+<li><a href="#file-formats">4.3. File formats</a>
+<ul class="sectlevel3">
+<li><a href="#introduction-3">4.3.1. Introduction</a></li>
+<li><a href="#wmo-bufr">4.3.2. WMO BUFR</a></li>
+<li><a href="#wmo-grib">4.3.3. WMO Grib</a></li>
+<li><a href="#netcdfcf">4.3.4. NetCDF/CF</a></li>
+<li><a href="#jsongeojson">4.3.5. JSON/GeoJSON</a></li>
+<li><a href="#xml">4.3.6. XML</a></li>
+</ul>
+</li>
+<li><a href="#the-gcwslf-open-source-software-package">4.4. The GCW/SLF Open Source Software Package</a>
+<ul class="sectlevel3">
+<li><a href="#background-4">4.4.1. Background</a></li>
+<li><a href="#overview">4.4.2. Overview</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#requirements">5. Requirements</a>
+<ul class="sectlevel2">
+<li><a href="#background-5">5.1. Background</a></li>
+<li><a href="#listing">5.2. Listing</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="introduction"><a class="anchor" href="#introduction"></a>1. Introduction</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="background"><a class="anchor" href="#background"></a>1.1. Background</h3>
+<div class="paragraph">
+<p>The intention of the GCW Portal is to be the entry point to datasets
+describing the cryosphere and form the information basis for the
+assessment activities of the Global Cryosphere Watch. It offers a web
+interface that contains information about datasets through discovery
+metadata provided by the data providers (or host data centre). These
+discovery metadata are harvested on a regular basis from data centres
+actually managing the data on behalf of the owners/providers of the
+data.</p>
+</div>
+<div class="paragraph">
+<p>The GCW Portal utilises interoperability interfaces to metadata and data
+in order to provide a unified view on the datasets that are relevant for
+GCW activities. The GCW Portal is also the interface for GCW metadata to
+WMO Information System (WIS) and WMO Integrated Global Observing System
+(WIGOS)<sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup>. The GCW Portal will also facilitate
+real time access to data through Internet and WMO GTS<sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnotedef_3" title="View footnote.">3</a>]</sup> as requested by the
+user community. This require a certain level of interoperability at the
+data level in addition to at the metadata level. On GTS, WMO formats
+(BUFR and GRIB) are required and the GCW Portal can transform data into
+these formats in the dissemination process, provided contributing data
+centres are following the required standards for documentation and
+interfaces to data.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="scope"><a class="anchor" href="#scope"></a>1.2. Scope</h3>
+<div class="paragraph">
+<p>This document provides an overview of the GCW Portal system and
+identifies interoperability tools that simplifies integration of data
+from a number of sources to a unified virtual data management system.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="intended-audience"><a class="anchor" href="#intended-audience"></a>1.3. Intended audience</h3>
+<div class="paragraph">
+<p>System managers at the data centres contributing to the GCW Portal
+system are the intended audience of this manual. This includes data
+centres managing CryoNet data as well as other data centres managing
+cryospheric data. Requirements are stricter for data centres managing
+CryoNet stations data than for other contributing data centres.
+Concerning the roles that should be defined at contributing data
+centres, the reader is referred to <a href="#anchor-5">[2]</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="applicable-documents"><a class="anchor" href="#applicable-documents"></a>1.4. Applicable documents</h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">RD 1</dt>
+<dd>
+<p><a href="http://www.wmo.int/pages/prog/www/OSY/Meetings/GCW_AM1/GCW_IP_v1.5(1Nov2015).docx">Global Cryosphere Watch (GCW) Implementation Plan, Version 1.5</a></p>
+</dd>
+<dt class="hdlist1"><a id="anchor-5"></a>RD 2</dt>
+<dd>
+<p>GCW Portal Operational Manual, Version 0.2.1 (To be
+published)</p>
+</dd>
+<dt class="hdlist1">RD 3</dt>
+<dd>
+<p><a href="http://globalcryospherewatch.org/" class="bare">http://globalcryospherewatch.org/</a></p>
+</dd>
+<dt class="hdlist1"><a id="anchor-7"></a>RD 4</dt>
+<dd>
+<p><a href="http://www.wmo.int/pages/prog/www/WIS/">WMO Information
+System</a></p>
+</dd>
+<dt class="hdlist1">RD 5</dt>
+<dd>
+<p><a id="anchor-8"></a><a href="http://www.wmo.int/pages/prog/www/WIS/metadata_en.html">WMO
+Core Profile of the ISO 19115</a></p>
+</dd>
+<dt class="hdlist1">RD 6</dt>
+<dd>
+<p><a id="anchor-9"></a><a href="https://www.wmo.int/pages/prog/www/wigos/index_en.html">WIGOS</a>,
+including the metadata standard</p>
+</dd>
+<dt class="hdlist1">RD 7</dt>
+<dd>
+<p><a href="http://www.openarchives.org/OAI/openarchivesprotocol.html">The Open
+Archives Initiative Protocol for Metadata Harvesting, Version 2</a></p>
+</dd>
+<dt class="hdlist1"><a id="anchor-10"></a>RD 8</dt>
+<dd>
+<p><a href="https://www.openarchives.org/pmh/tools/tools.php">OAI-PMH
+tools</a></p>
+</dd>
+<dt class="hdlist1"><a id="anchor-11"></a>RD 9</dt>
+<dd>
+<p><a href="http://www.opengeospatial.org/standards/cat">OGC CSW
+specification</a></p>
+</dd>
+<dt class="hdlist1"><a id="anchor-12"></a>RD 10</dt>
+<dd>
+<p><a href="http://gcmd.gsfc.nasa.gov/add/difguide/index.html">GCMD
+DIF Writers Guide</a></p>
+</dd>
+<dt class="hdlist1"><a id="anchor-13"></a>RD 11</dt>
+<dd>
+<p><a href="http://gcmd.nasa.gov/learn/keyword_list.html">GCMD
+Science Keywords</a></p>
+</dd>
+<dt class="hdlist1"><a id="anchor-14"></a>RD 12</dt>
+<dd>
+<p><a href="http://cfconventions.org/standard-names.html">Climate
+and Forecast Standard Names</a></p>
+</dd>
+<dt class="hdlist1"><a id="anchor-15"></a>RD 13</dt>
+<dd>
+<p><a href="http://wis.wmo.int/2013/metadata/version_1-3-0/WMO_Core_Metadata_Profile_v1.3_Part_2.pdf">WMO
+Code Lists</a></p>
+</dd>
+<dt class="hdlist1"><a id="anchor-16"></a>RD 14</dt>
+<dd>
+<p><a href="http://www.unidata.ucar.edu/software/netcdf/">NetCDF</a></p>
+</dd>
+<dt class="hdlist1"><a id="anchor-17"></a>RD 15</dt>
+<dd>
+<p><a href="http://cfconventions.org/">Climate and Forecast
+Conventions</a></p>
+</dd>
+<dt class="hdlist1"><a id="anchor-18"></a>RD 16</dt>
+<dd>
+<p><a href="http://opendap.org/">OPeNDAP</a></p>
+</dd>
+<dt class="hdlist1"><a id="anchor-19"></a>RD17</dt>
+<dd>
+<p><a href="http://www.unidata.ucar.edu/software/thredds/current/netcdf-java/CDM/">UNIDATA&#8217;s
+Common Data Model</a></p>
+</dd>
+<dt class="hdlist1"><a id="anchor-20"></a>RD 18</dt>
+<dd>
+<p><a href="http://wiki.esipfed.org/index.php/Attribute_Convention_for_Data_Discovery_1-3">Attribute Convention for Dataset Discovery</a></p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="an-outline-of-the-gcw-portal"><a class="anchor" href="#an-outline-of-the-gcw-portal"></a>2. An outline of the GCW Portal</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="background-1"><a class="anchor" href="#background-1"></a>2.1. Background</h3>
+<div class="paragraph">
+<p>The <a href="https://gcw.met.no">GCW Data Portal</a>, or catalogue, is dedicated to
+data management and to providing specific information on datasets . The
+data management component is an enabling service in the sense that it
+identifies relevant datasets and their locations and provides an interface
+that can be used in the evaluation of GCW data and products. The portal
+will support simple visualization (generation of maps or diagrams like
+time series) and transformations such as reformatting and re-projection of
+data, <em>if the data are served through the appropriate interfaces and
+forms</em>.</p>
+</div>
+<div class="paragraph">
+<p>GCW data management shall integrate datasets and provides access to data
+and information on past, present, and future cryospheric conditions. To
+achieve these results, the data portal must be attached to real-time and
+near-real-time data management systems and to data archives. While
+interfacing with existing data management systems, GCW respects
+partnership and ownership. GCW itself will rely on distributed data
+management technologies and partners (e.g. CryoNet stations) to
+establish the GCW catalogue. This process will create a unified
+interface to datasets in an otherwise fragmented terrain. No information
+on data (discovery metadata) will be kept in the GCW catalogue without
+an agreement with the data producer/data owner.</p>
+</div>
+<div class="paragraph">
+<p><em>GCW data management follows a metadata driven approach in which
+datasets are described through discovery metadata exchanged between
+contributing data centers and the GCW catalogue.</em></p>
+</div>
+<div class="paragraph">
+<p>In the GCW context, at least two types of metadata are relevant (see
+<a href="#the-concept-of-metadata">Section 2.2</a> for more information on metadata). One is
+“discovery” or index metadata identifying general characteristics of a
+dataset, including what was measured where and when, potential
+restrictions on data use, data custodians, and the available interfaces
+to the actual dataset. This is the type of metadata that will be
+exchanged within GCW. Another type, “use” metadata, is required when a
+user has accessed a dataset and begins to use it. Such metadata
+typically include a specification of variables, units used, how missing
+values are encoded, and other details on the contents of the dataset.
+The third type of metadata is interpretation or context metadata for
+observational data (e.g., data quality, instrumentation used, processing
+performed, and environmental conditions), which allow data to be
+interpreted in context. The ingested discovery metadata will be
+harvested from project specific, national, and international catalogues.
+Some examples are given in <a href="#data-centres">Figure1</a>. In addition to harvesting existing
+catalogues, the data management part of the GCW portal will facilitate
+forms for submission of metadata on datasets not handled by existing
+catalogues. Successful exchange of metadata will involve some degree of
+adaptation of systems on either side. However, in order to establish a
+sustainable system, the number of standards the GCW portal has to
+support cannot be too many. Furthermore, the actual data also has to be
+standardised to support integration of data among data providers.
+Concerning the search model used for the GCW portal, search for
+scientific parameters is currently based on the GCMD Science Keywords.
+<em>All datasets must be documented in the English language.</em></p>
+</div>
+<div id="data-centres" class="imageblock">
+<div class="content">
+<img src="illustrations/gcw-flow-20200211.png" alt="gcw flow 20200211">
+</div>
+<div class="title">Figure 1. Data centres which the GCW Portal have discussions with.</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+Update illustration, it is outdated.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="the-concept-of-metadata"><a class="anchor" href="#the-concept-of-metadata"></a>2.2. The concept of metadata</h3>
+<div class="paragraph">
+<p>GCW Portal metadata are divided in 4 categories which are briefly
+described in <a href="#metadata-types">Table 1</a>. Among these 4 categories, data providers or supporting
+data centres are supposed to provide 3 of them. Further below in this
+document, there are recommendations on how to provide these.</p>
+</div>
+<table id="metadata-types" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Brief introduction to different types of metadata.</caption>
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Purpose</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Discovery metadata</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Used to find relevant data</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Discovery metadata are
+also called index metadata and are a digital version of the library
+index card. It describes who did what, where and when, how to access
+data and potential constraints on the data. It shall also link to
+further information on the data like site metadata. GCW is required to
+expose this information through WMO Information System as well.
+Discovery metadata are thus WIS metadata, although the GCW portal can
+translate to WIS for those not using WMO standards directly.</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>ISO19115</p>
+</div>
+<div class="paragraph">
+<p>ISO19115 (WIS)</p>
+</div>
+<div class="paragraph">
+<p>GCMD DIF</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use metadata</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Used to understand data found</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use metadata describe the
+actual content of a dataset and how it is encoded. The purpose is to
+enable the user to understand the data without any further
+communication. It describes content of variables using standardised
+vocabularies, units of variable, encoding of missing values, map
+projections etc.</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Climate and Forecast Convention</p>
+</div>
+<div class="paragraph">
+<p>BUFR</p>
+</div>
+<div class="paragraph">
+<p>GRIB</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Configuration metadata</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Used to tune portal services for datasets for
+users.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Configuration metadata are used to improve the services offered
+through a portal to the user community. This can be e.g. how to best
+visualise a product. This information is maintained by the GCW portal
+and is not covered by discovery or use metadata standards.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Site metadata</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use to understand data found</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Site metadata are used to
+describe the context of observational data. It describes the location of
+an observation, the instrumentation, procedures etc. To a certain extent
+it overlaps with discovery metadata, but also extends it. Site metadata
+can be used for observation network design.</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>WIGOS</p>
+</div>
+<div class="paragraph">
+<p>OGC O&amp;M</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="types-of-contributing-data-centres"><a class="anchor" href="#types-of-contributing-data-centres"></a>2.3. Types of contributing data centres</h3>
+<div class="sect3">
+<h4 id="cryonet"><a class="anchor" href="#cryonet"></a>2.3.1. CryoNet</h4>
+<div class="paragraph">
+<p>The GCW surface observation network is comprised of a core component
+(CryoNet). These stations are following GCW measurement practises and
+have continuous temporal records of a certain length and quality.</p>
+</div>
+<div class="paragraph">
+<p>Contributing stations are those that provide useful measurements of the
+cryosphere, but whose data records may be shorter or with large gaps, do
+not completely follow CryoNet measurement practices, or in some other
+way do not provide the quality and consistency of data required of
+CryoNet stations. These stations may be in remote, hard to access
+regions where cryospheric observations are scarce or in regions where
+they complement other
+<a href="http://globalcryospherewatch.org/about/cryosphere.html">cryospheric
+measurements</a>.</p>
+</div>
+<div class="paragraph">
+<p>CryoNet and contributing stations must expose metadata as well as data
+in GCW standardised form enabling the GCW Portal to catalogue all
+datasets, access archived data as well as feed real time data into real
+time data streams used by the WMO GCW user community.</p>
+</div>
+<div class="paragraph">
+<p>All <a href="http://globalcryospherewatch.org/cryonet/site_types.html">CryoNet and
+contributing stations</a> must provide sufficient information to the
+minimal requirements of WIS <a href="#anchor-7">[4]</a> and
+WIGOS<a href="#anchor-9">[6]</a> metadata.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="other"><a class="anchor" href="#other"></a>2.3.2. Other</h4>
+<div class="paragraph">
+<p>In addition to the stations listed above, there is a large number of
+data centres managing relevant datasets. In order to identify these
+datasets, the GCW Portal is harvesting metadata from a number of data
+centres and filter the information for information about the cryosphere.
+Data centres wishing to contribute to this will also need to follow some
+minimal requirements concerning interoperability at the metadata and
+data level.</p>
+</div>
+<div class="paragraph">
+<p>These requirements are provided below.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="quick-reference-to-recommended-interfaces-and-standards"><a class="anchor" href="#quick-reference-to-recommended-interfaces-and-standards"></a>2.4. Quick reference to recommended interfaces and standards</h3>
+<div class="paragraph">
+<p>The text below provides a brief introduction to relevant interfaces for
+GCW data management. However, in order to establish a manageable system,
+the number of interfaces has to be a minimum, otherwise the development
+and maintenance costs of the Portal will be too high and not
+sustainable. The recommended interfaces for data centres integrating
+with the GCW Portal are:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Discovery metadata</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Provide discovery metadata enabling users to search for relevant
+information using ISO19115 with GCMD Science Keywords for variables or
+GCMD DIF records through OAI-PMH.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Data</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Provide data through OPeNDAP using the CF-1.6 convention or higher.
+One time series per stream, i.e. do not combine many stations into one
+structure. This allows streaming of data and handling of both real time
+and archived data.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Further details are provided below.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="interoperability-interfaces"><a class="anchor" href="#interoperability-interfaces"></a>3. Interoperability interfaces</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="discovery-metadata"><a class="anchor" href="#discovery-metadata"></a>3.1. Discovery Metadata</h3>
+<div class="sect3">
+<h4 id="background-2"><a class="anchor" href="#background-2"></a>3.1.1. Background</h4>
+<div class="paragraph">
+<p>Discovery metadata are generated by the data centres hosting the data
+sets. Metadata are harvested and ingested in the central catalogue for
+usage by the GCW Portal user community.</p>
+</div>
+<div class="paragraph">
+<p>The GCW Portal harvest discovery metadata to a central repository that
+facilitates the search process for users. The GCW search is not based on
+distributed search (forwarding search criteria to supporting catalogues)
+as this is a slower process compared to searching in a central
+repository. Discovery metadata are harvested at regular intervals and
+checked for conformance according to the standards identified herein and
+in <a href="#anchor-5">[2]</a>.</p>
+</div>
+<div class="paragraph">
+<p>Regardless of the metadata standard used and the mechanism for transport
+of the information the following recommendation should be implemented at
+the data centre repositories.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="exchange-mechanisms-for-discovery-metadata"><a class="anchor" href="#exchange-mechanisms-for-discovery-metadata"></a>3.1.2. Exchange mechanisms for discovery metadata</h4>
+<div class="sect4">
+<h5 id="introduction-1"><a class="anchor" href="#introduction-1"></a>3.1.2.1. Introduction</h5>
+<div class="paragraph">
+<p>Discovery metadata should be exposed using a suitable interface that
+allows information on existing datasets as well as changes to the
+inventory to be conveyed to the GCW Portal. Suitable interfaces for this
+are OAI-PMH and OGC CSW<sup class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnotedef_4" title="View footnote.">4</a>]</sup>. Other
+interfaces may be evaluated, but to ensure a cost effective solution the
+number of interfaces must be limited.</p>
+</div>
+<div class="paragraph">
+<p>OAI-PMH is the recommended interface to use due to its simplicity and
+cost effective nature. A number of software solutions supporting this
+are freely available and a free and open software package (see
+<a href="#anchor-33">[3.3]</a>) will be provided.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="oai-pmh"><a class="anchor" href="#oai-pmh"></a>3.1.2.2. OAI-PMH</h5>
+<div class="paragraph">
+<p>The Open Archives Initiatives Protocol for Metadata Harvesting (OAI-PMH)
+is the recommended interface for exchanging metadata with the GCW
+Portal. It is a cost effective and robust implementation for exchange of
+metadata between data centres, is used extensively by WMO Information
+System and is under consideration for WIGOS metadata exchange. It is
+much cheaper to implement than most alternatives and there are a number
+of tools available. Some of these are listed on <a href="#anchor-10">[8]</a>.
+Some not listed but worth examining are
+<a href="https://pypi.python.org/pypi/pyoai">pyOAI</a> and
+<a href="http://pypi.python.org/pypi/MOAI">MOAI</a>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+Text to be updated, MOAI and pyAOI are not updated anymore, better use pyCSW or other alternatives.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>When implementing OAI-PMH there is a number of GCW recommendations (see
+<a href="#anchor-35">[3.3.2]</a>) that are based on experience during the initial
+period of metadata exchange for GCW.</p>
+</div>
+<div class="paragraph">
+<p><em>OAI-PMH serving GCMD DIF is currently the preferred mechanism for interacting with the GCW Data Portal at the discovery metadata level. Properly formatted ISO19115 (e.g. the INSPIRE profile) is also supported.</em></p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="ogc-csw"><a class="anchor" href="#ogc-csw"></a>3.1.2.3. OGC CSW</h5>
+<div class="paragraph">
+<p>The Open Geospatial Consortium Catalogue Services for the Web (OGC CSW <a href="#anchor-11">[9]</a>) is another standard for exposing the content of a catalogue in a standardised form. As for OAI-PMH records are exposed using XML. Compared to OAI-PMH, OGC CSW is a bit more expensive to implement from the specification although there are several tools supporting it. It is the recommended exchange mechanism for metadata within the European framework INSPIRE and will be supported by the GCW Portal although OAI-PMH is recommended from a cost benefit perspective.  If OGC CSW is used it must provide ISO19139 records through GET. The keyword element has to be populated with relevant GCMD Science Keywords.</p>
+</div>
+<div class="paragraph">
+<p>Details on how to interact with a OGC CSW interface has to be discussed when there is a GCW CryoNet station that wants to use this interface.</p>
+</div>
+<div class="paragraph">
+<p><em>The GCW Data Portal is harvesting ISO19115/ISO19139 over OGC CSW from a number of data centres. There are challenges and e.g. when harvesting from GeoNetwork, but these can be sorted out in a dialogue.</em></p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="other-1"><a class="anchor" href="#other-1"></a>3.1.2.4. Other</h5>
+<div class="paragraph">
+<p>Other mechanisms like OpenSearch are under implementation, but is
+currently not supported. CryoNet data centres wishing to test this needs
+to establish a dialogue with the GCW Portal.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="structures-for-discovery-metadata"><a class="anchor" href="#structures-for-discovery-metadata"></a>3.1.3. Structures for discovery metadata</h4>
+<div class="paragraph">
+<p>The GCW Portal is consuming discovery metadata that are describing the
+data. In order to make the portal work properly and to ensure
+integration with WMO systems like WIS, the following discovery metadata
+elements are required ().</p>
+</div>
+<div class="paragraph">
+<p>Table 2: GCW discovery metadata elements, purpose and mapping to DIF and
+ISO19115. Status is one of Mandatory (M), Optional (O) or Recommended
+&#174;.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dataset Identifier</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A unique ID for the dataset issued by the
+responsible data centre.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">M</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Entry_ID</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MD_Metadata&gt; MD_Reference&gt;
+MD_Identifier</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dataset Title</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A brief descriptive title of the dataset suitable for
+listing purposes.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">M</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Entry_Title</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CI_Citation</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dataset Abstract</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A brief description of the data set along with the
+purpose of the data. This allows potential users to determine if the
+data set is useful for their needs.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">M</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Summary</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MD_Metadata&gt;
+MD_Identification</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dataset Parameters</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specification of keywords from a controlled
+vocabulary describing the content of the dataset and that consumers can
+use to identify the dataset.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">M</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Parameters</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MD_Identification&gt;
+MD_Keywords</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dataset Temporal Coverage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specification of the start and stop dates of
+the dataset. If currently operating, the stop date is empty.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">M</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Temporal Coverage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EX_Extent&gt; EX_TemporalExtent</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dataset Spatial Coverage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A bounding box for the data specifying the
+location of the dataset using latitudes and longitudes. Latitudes are
+positive northwards and longitudes eastwards.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">M</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Spatial Coverage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EX_Extent&gt; EX_GeographicBoundingBox</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dataset Use Constraints</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A description of what a consumer can do with
+the data after accessing them. In order to protect intellectual property
+rights (e.g. non commercial use).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">M</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use Constraints</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MD_Constraints&gt;
+MD_LegalConstraints</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dataset Creator</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Details on the institution and/or people responsible
+for generation of the dataset.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">M</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Personnel</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CI_Citation&gt;
+CI_ResponsiblePartyInfo</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dataset Progress</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A specification of whether the data production is
+ongoing, complete or planned.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Data Set Progress</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MD_Identification</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dataset Operational Status</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">O</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dataset Access</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Internet links to the data. The type of service behind
+a link need to be identified by using proper keywords. GCMD content type
+keywords are required.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">M</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Related URL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CI_Citation&gt; CI_OnlineResource</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dataset Related Information</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Internet link to project or site specific
+websites providing context information for the dataset.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Related URL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CI_Citation&gt; CI_OnlineResource</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dataset Quality</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A freetext formulation on the quality of the data.
+E.g. whether data has been quality controlled or not.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Quality</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Data Centre</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Data Center, organisation or institution responsible
+for maintaining and publishing the data. This is not to be confused with
+the Dataset Creator. The information required covers relevant contact
+information as well as URL to the website.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">M</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Data Center</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CI_ResponsiblePartyInfo</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Discovery Metadata Last Revision</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specification of the creation date
+for the discovery metadata or the last revision. The form YYYY-MM-DD
+must be used.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">M</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Last DIF Revision Date</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MD_Metadata&gt; CI_Date &gt; CI_Date</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect4">
+<h5 id="iso19115"><a class="anchor" href="#iso19115"></a>3.1.3.1. ISO19115<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></h5>
+<div class="paragraph">
+<p>The WMO Core Profile <a href="#anchor-8">[5]</a> is a profile of the ISO19115
+metadata standard and is recommended for use within GCW for discovery
+metadata. However, ISO19115 is a container that can be populated with
+several controlled vocabularies in some of the elements. The search
+model for the GCW Portal is currently built around parameter
+descriptions using the GCMD Science Keywords <a href="#anchor-13">[11]</a>. A
+mapping exist between Climate and Forecast standard names
+<a href="#anchor-14">[12]</a> and GCMD Science
+Keywords<sup class="footnote">[<a id="_footnoteref_5" class="footnote" href="#_footnotedef_5" title="View footnote.">5</a>]</sup>,
+although this not actively maintained currently. GCW is working with
+WIGOS to establish a dedicated controlled vocabulary for GCW purpose.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+Need to add information on how to handle controlled vocabualries, both for keywords and for URLs, as well as how to convey information about personnel related to the dataset and the host data centre.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="gcmd-dif"><a class="anchor" href="#gcmd-dif"></a>3.1.3.2. GCMD DIF</h5>
+<div class="paragraph">
+<p>The Global Change Master Directory (GCMD) Directory Interchange Format (DIF) <a href="#anchor-12">[10]</a> is a metadata standard that is widely used (e.g. by the Antarctic Master Directory) and that was used to establish the International Polar Year Data and Information Service (IPYDIS), hosted by the National Snow and Ice Data Center (NSIDC).</p>
+</div>
+<div class="paragraph">
+<p><em>The GCW Data Portal consumes V9.x and 10.x.</em></p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="other-2"><a class="anchor" href="#other-2"></a>3.1.3.3. Other</h5>
+<div class="paragraph">
+<p>This section has to be extended with further information on both WIS and
+WIGOS metadata. There are still some issues under consideration for the
+practical implementation of the latter. These issues has to be discussed
+within the GCW community and input provided to the Task Team on WIGOS
+Metadata.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="data"><a class="anchor" href="#data"></a>4. Data</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="background-3"><a class="anchor" href="#background-3"></a>4.1. Background</h3>
+<div class="paragraph">
+<p>While interoperability at the metadata level is important for GCW,
+international exchange of observations of the cryosphere is vital to
+success of GCW. This implies both exchange of archived data as well as
+exchange of real time information. In order to facilitate such exchange
+of information within the GCW community a certain level of
+standardisation is required. This standardisation is required to ensure
+that all users can easily understand the data that is made available and
+perform intercomparisons as well as use it in analyses.</p>
+</div>
+<div class="paragraph">
+<p>In this context standardised documentation of data through use metadata
+as well encoding of the information is required. Use metadata can be
+defined as identification of the variables, their structure (e.g.
+spatiotemporal dimensions and mapping to file format), units of
+variables, encoding of missing values, quality/accuracy estimates, map
+projection and coordinate reference system etc (cf. Section 3.1.1.).</p>
+</div>
+<div class="paragraph">
+<p>Application of a common data model simplifies integration and
+intercomparison of datasets. Application of NetCDF<a href="#anchor-16">[14]</a>
+as the file format, utilising the Climate and
+Forecast<a href="#anchor-17">[15]</a> convention and serving data through
+OPeNDAP<a href="#anchor-18">[16]</a> simplifies the issue of integration and
+combination of data through the Common Data Model<a href="#anchor-19">[17]</a>.</p>
+</div>
+<div class="paragraph">
+<p>Several OPeNDAP implementations exist (e.g.
+<a href="http://www.unidata.ucar.edu/software/thredds/current/tds/">THREDDS</a>,
+<a href="http://docs.opendap.org/index.php/Hyrax">Hyrax</a>,
+<a href="https://coastwatch.pfeg.noaa.gov/erddap/index.html">ERDDAP</a> and
+<a href="http://www.pydap.org/">pyDAP</a>). pyDAP can integrate with relational
+databases. Utilisation of OPeNDAP simplifies handling of both archive
+and real time data as the real time segmentation of data is performed by
+the client asking for data. OPeNDAP also minimises the overhead as no
+files are moved, the client connects to data streams, reads the
+necessary data and close the connection.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="exchange-mechanisms-for-data"><a class="anchor" href="#exchange-mechanisms-for-data"></a>4.2. Exchange mechanisms for data</h3>
+<div class="sect3">
+<h4 id="introduction-2"><a class="anchor" href="#introduction-2"></a>4.2.1. Introduction</h4>
+<div class="paragraph">
+<p>Traditionally data has been exchanged using FTP in various file formats.
+Modern technology opens up for other mechanisms for transporting data.
+Many technologies share some features, but there are differences in
+complexity and cost of implementation.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="httpftp"><a class="anchor" href="#httpftp"></a>4.2.2. HTTP/FTP</h4>
+<div class="paragraph">
+<p>This is the easiest manner to support data exchange, but it has
+limitations for large datasets as well as there is no common data model
+or standardisation of file formats. Often data are served in various
+ASCII formats that differ from data centre to data centre without any
+standardised metadata simplifying the process of understanding and using
+the data. Integration of data from various data centres usually takes
+much human effort. This is simplified if standardised formats like WMO
+BUFR or WMO Grib are used, but also for these additional information is
+required to fully understand the content. Data in NetCDF following the
+Climate and Forecast Convention is self explainable and connects to the
+Common Data Model.</p>
+</div>
+<div class="paragraph">
+<p>Segmentation of real time data has to be supported by the contributing
+data centre. FTP is not recommended for GCW purposes, HTTP can be the
+fallback mechanism, but in order to properly identify the physical files
+in a time series, more discovery metadata is required than if OPeNDAP is
+used. Anyway, data must be presented in a self explaining format, site
+or organisation specific formats are not useful.</p>
+</div>
+<div class="paragraph">
+<p><em>Data served through HTTP/FTP should be referenced as individual files in the discovery metadata. If data access is through a web page, this should be conveyed in discovery metadata as a project web page. The GCW Data Portal can not do anything but referring the user to this web page. there is no linkage between data served this way and the oeprational exchange of data within WMO.</em></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="opendap"><a class="anchor" href="#opendap"></a>4.2.3. OPeNDAP</h4>
+<div class="paragraph">
+<p>The Data Access Protocol simplifies integration of data from various
+data centres as it is utilising the Common Data Model, provided input
+data are encoded according to Climate and Forecast conventions use
+metadata follows the data and the application of a data stream removes
+the step of downloading a file and keeping track of this while working
+on the data. It also allows segmentation of data in variable space and
+space and time and it is
+RESTful<sup class="footnote">[<a id="_footnoteref_6" class="footnote" href="#_footnotedef_6" title="View footnote.">6</a>]</sup>.</p>
+</div>
+<div class="paragraph">
+<p>OPeNDAP is the recommended way to exchange data within GCW. It allows
+access to both archived and real time data. If OPeNDAP is supproted, the
+GCW portal can extract the most recent observations from a time series
+and ingest these in WMO GTS if required by the user community. The data
+served through OPeNDAP has to be mapped to the Climate and Forecast
+convention 1.6 or higher. Further details on how to encode data in
+according to this convention is provided in the NetCDF description (see
+<a href="#anchor-48">[3.2.3.4]</a>).</p>
+</div>
+<div class="paragraph">
+<p><em>The GCW Data Portal is working to enable extraction of real time data from OPeNDAP served data when these are presented according to the NetCDF Climate and Forecasts Conventions for discrete sampling geometries.</em></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+Details to be further explained later.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="ogc-wfs"><a class="anchor" href="#ogc-wfs"></a>4.2.4. OGC WFS</h4>
+<div class="paragraph">
+<p>OGC Web Feature Service (WFS) is a mechanism allowing subsetting of information, but it relies on transferring data as files in Geography Markup Language (GML). There is no standardised form for use metadata in GML. GML behaves like NetCDF without the Climate and Forecast convention. It is a container that can hold anything making it hard to fully decode and exhange the information in a harmonised manner.</p>
+</div>
+<div class="paragraph">
+<p><em>OGC WFS is not supported by the GCW Portal.</em></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+To be updated with information about OGC API and WIS 2.0 perspectives.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="ogc-wcs"><a class="anchor" href="#ogc-wcs"></a>4.2.5. OGC WCS</h4>
+<div class="paragraph">
+<p>OGC Web Coverage Service (WCS) is similar to OGC WFS but focus on information representing phenomena that varies in time and space. Like WFS it transfers files, but the number of file formats may be extended and support e.g. GML, GeoTIFF, HDF-EOS, NetCDF. However, OPeNDAP can serve the purpose of both WFS and WCS at a much lower cost.</p>
+</div>
+<div class="paragraph">
+<p><em>The GCW Data Portal does not support OGC WCS.</em></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+To be updated with information about OGC API and WIS 2.0 perspectives.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="ogc-wms-map-projections"><a class="anchor" href="#ogc-wms-map-projections"></a>4.2.6. OGC WMS map projections</h4>
+<div class="paragraph">
+<p>OGC Web Mapping Service (WMS) is useful for visualising maps etc. It provides a graphical representation of data but no access to data in itself. <em>The WMS service must provide a GetCapabilities document per dataset, not combining multiple datasets into the same GetCapabilities document for the GCW Portal to be able to consume the OGC WMS service.</em></p>
+</div>
+<div class="paragraph">
+<p>Each WMS server must support the following map projections:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>EPSG:32661: WGS 84 / UPS North</p>
+</li>
+<li>
+<p>EPSG:4326: WGS 84</p>
+</li>
+<li>
+<p>EPSG:3408: NSIDC EASE-Grid North</p>
+</li>
+<li>
+<p>EPSG:3410: NSIDC EASE-Grid Global</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="file-formats"><a class="anchor" href="#file-formats"></a>4.3. File formats</h3>
+<div class="sect3">
+<h4 id="introduction-3"><a class="anchor" href="#introduction-3"></a>4.3.1. Introduction</h4>
+<div class="paragraph">
+<p>Most of the exchange mechanisms mentioned above transfer files. In order to properly understand the content of a file some use metadata is usually necessary. File formats that embed use metadata (and also discovery metadata) are preferred. NetCDF in itself is not self describing, but NetCDF following the Climate and Forecast Convention (CF) is self describing. Adding the NetCDF Attribute Convention for Dataset Discovery embeds full discovery metadata (e.g. originator/PI, constraints etc.) in the file. <em>The NetCDF/CF format is strongly recommended in most cases due to widespread use in the scientific community and ease of implementation.</em> Some data may not fit into the model of NetCDF, but with the CF 1.8 convention there is now support for standardised descriptions of gridded data (including satellite swath data), time series at stations, time series of profiles at stations, timeseries at moving stations (trajectories) and geometries which formerly was kept in KML, ESRI Shapefiles or similar. The NetCDF container is thus providing a standardised encoding for most of the data GCW is concerned with as long as the CF convention version 1.8 or higher is used.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="wmo-bufr"><a class="anchor" href="#wmo-bufr"></a>4.3.2. WMO BUFR</h4>
+<div class="paragraph">
+<p>Binary Universal Form for the Representation of meteorological data (BUFR) is a binary data format maintained by WMO. Its main purpose is operational exchange of real time data and it is adapted for robust transfer on varying bandwidth connections. Data that are supposed to be exchanged using WMO Global Telecommunication System (GTS) should be encoded in WMO BUFR. BUFR is a table driven file format, implying that the format is not self explaining and the user has to have the correct table to understand the content.</p>
+</div>
+<div class="paragraph">
+<p>If CryoNet sites are providing observational data according to the NetCDF/CF convention over OPeNDAP, the GCW Portal will, if requested, create BUFR files and submit these onto GTS if required by the GCW Community.<sup class="footnote">[<a id="_footnoteref_7" class="footnote" href="#_footnotedef_7" title="View footnote.">7</a>]</sup> Furthermore, currently the GCW Portal converts GTS circulated BUFR to NetCDF/CF, this functionality of moving between NetCDF and BUFR will be extended and incorporated as a transformation service in the GCW Portal as well.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="wmo-grib"><a class="anchor" href="#wmo-grib"></a>4.3.3. WMO Grib</h4>
+<div class="paragraph">
+<p>GRIdded Binary (GRIB) is a binary format maintained by WMO. As BUFR, this format is best suited for real time exchange over WMO GTS. It is also a table driven format like BUFR, having the same limitations. The GCW Portal has developed functionality to map between GRIB and NetCDF/CF, although this is yet not fully included in the GCW Portal yet.</p>
+</div>
+<div class="paragraph">
+<p>Depending on the type of data provided, GCW Data Portal may help converting to/from NetCDF-CF and WMO GRIB.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="netcdfcf"><a class="anchor" href="#netcdfcf"></a>4.3.4. NetCDF/CF</h4>
+<div class="paragraph">
+<p>This ensures a self explaining dataset where structure and content are encoded using an accepted standard that has impact beyond the original community. It can be used to handle gridded data, time series, profiles and trajectories in standardised manner if encoded according to Climate and Forecast conventions <a href="#anchor-17">[15]</a>. Furthermore, it includes semantics in a manner which can be used to cross walk content with other structured data descriptions.</p>
+</div>
+<div class="paragraph">
+<p>Usage of NetCDF/CF version 1.6 or higher is recommended for gridded and observational data. If outline data are handled, version 1.8 or higher is recommended. It is also recommended to add ACDD<a href="#anchor-20">[18]</a> global attributes to the NetCDF/CF files in order to incorporate the discovery metadata in the actual data.</p>
+</div>
+<div class="paragraph">
+<p><em>For observations, the GCW Data Portal supports services on top of NetCDF-CF when data are encoded in accordance with the Discrete sampling geometries specification.</em></p>
+</div>
+<div class="paragraph">
+<p>There is an ongoing activity within WMO to establish WMO profiles of NetCDF-CF and GCW is supporting and relying on this. If help is required to transform observations in non standard file formats like text or spreadsheets to NetCDF-CF please contact the GCW Data Portal.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="jsongeojson"><a class="anchor" href="#jsongeojson"></a>4.3.5. JSON/GeoJSON</h4>
+<div class="paragraph">
+<p>JavaScript Object Notation (JSON) and the geographical extension of this is similar to NetCDF in that it is a container lacking standardised metadata. The consequence is that combination of data from various sources is not straightforward.</p>
+</div>
+<div class="paragraph">
+<p>JSON/GeoJSON is currently not supported by the GCW Portal, but do expect to support GeoJSON at some time in the future provided a sound data model along the lines of the Climate and Forecast Conventions with ACDD can be established.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="xml"><a class="anchor" href="#xml"></a>4.3.6. XML</h4>
+<div class="paragraph">
+<p>Extensible Markup Language (XML) is similar to NetCDF in that it is a
+container lacking standardised metadata describing its contents. There
+are many variants of XML and the overhead is large. The consequence is
+that combination of data from various sources is not straightforward.</p>
+</div>
+<div class="paragraph">
+<p>XML is not supported by the GCW Portal.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="the-gcwslf-open-source-software-package"><a class="anchor" href="#the-gcwslf-open-source-software-package"></a>4.4. The GCW/SLF Open Source Software Package</h3>
+<div class="sect3">
+<h4 id="background-4"><a class="anchor" href="#background-4"></a>4.4.1. Background</h4>
+<div class="paragraph">
+<p><a id="anchor-59"></a>WMO Global Cryosphere Watch (GCW) is depending on a number
+of observing stations (CryoNet stations) for feeding the GCW value chain
+with observations. GCW has a requirement for both real time and archived
+data. In the period 2015-2017, GCW has been working with WSL/SLF to set
+up interoperability between the WSL/SLF data centre being responsible
+for one of the CryoNet stations. WSL/SLF has kindly agreed to make the
+software stack they have developed available for a wider community.</p>
+</div>
+<div class="paragraph">
+<p>The following is a brief description of several software tool used at
+the
+<a href="https://www.wsl.ch/en/about-wsl/organization/locations/slf-davos.html">WSL
+Institute for Snow and Avalanche Research (SLF)</a> to processes and manage
+data at various stages of the “datacycle” from sensors to published
+dataset. All projects are available under open source licenses.</p>
+</div>
+<div class="paragraph">
+<p>The software package is designed to support the value chain provided in
+<a href="#cryonet-value-chain">Figure2</a>.</p>
+</div>
+<div id="cryonet-value-chain" class="imageblock text-center">
+<div class="content">
+<img src="illustrations/gcw-cryonet-valuechain.png" alt="gcw cryonet valuechain">
+</div>
+<div class="title">Figure 2. The GCW CryoNet value chain.</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="overview"><a class="anchor" href="#overview"></a>4.4.2. Overview</h4>
+<div class="paragraph">
+<p>The GCW/SLF software package <a href="#cryonet-software-stack">Figure3</a> consists of several modules. The purpose of
+these modules is listed below and how the components work together to
+support the purpose of the GCW portal is illustrated in .</p>
+</div>
+<div class="paragraph">
+<p>The core element in the software package is the data preprocessor
+MeteoIO that takes data from the sensor, through a quality control
+procedure into standardised NetCDF/CF files which can be published.</p>
+</div>
+<div class="paragraph">
+<p>MeteoIO was originally developed to provide robust meteorological
+forcing data to an operational model that forms part of the avalanche
+forecast at the SLF. However, it also happens to be very good at reading
+diverse data sources and producing a standardised output. It has a
+modular architecture which makes it flexible and fast to develop new use
+cases. It can handle both gridded and time series data and has various
+functions for cleaning/ processing data to various quality standards and
+produces QA reports. MeteoIO is C++ library.</p>
+</div>
+<div class="paragraph">
+<p>MeteoIO git: <a href="https://models.slf.ch/p/meteoio/" class="bare">https://models.slf.ch/p/meteoio/</a></p>
+</div>
+<div class="paragraph">
+<p>In order to publish discovery metadata for the data prepared through
+MeteoIO, software developed through the ENVIDAT project is used.
+<a id="anchor-62"></a>EnviDat is the WSL/SLF main CKAN based dataportal and
+metadata repository. Core CKAN has been extended to cover specific
+requirements of research data management. These include an OAI-PMH
+server, DOI publishing and supporting metadata standards. The advantage
+of CKAN is that it provides a robust and intuitive UI for structured
+metadata submission. This enables large parts of the data management
+process to be decentralised to the submitter.</p>
+</div>
+<div class="paragraph">
+<p>CKAN project: <a href="https://ckan.org/" class="bare">https://ckan.org/</a></p>
+</div>
+<div class="paragraph">
+<p>EnviDat extensions are here: <a href="https://github.com/EnviDat" class="bare">https://github.com/EnviDat</a></p>
+</div>
+<div class="paragraph">
+<p>The OPeNDAP component providing external access to the data preprocessed
+through MeteoIO and announced through ENVIDAT is currently under
+development.</p>
+</div>
+<div id="cryonet-software-stack" class="imageblock">
+<div class="content">
+<img src="illustrations/cryonet-software-stack.png" alt="cryonet software stack">
+</div>
+<div class="title">Figure 3. An overview of the main components of the GCW Software package developed by WSL/SLF.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="requirements"><a class="anchor" href="#requirements"></a>5. Requirements</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="background-5"><a class="anchor" href="#background-5"></a>5.1. Background</h3>
+<div class="paragraph">
+<p>The following chapter is listing a number of requirements related to the
+information provided above. In the long term this information may be
+extracted into a separate document, but in order to simplify the process
+it is listed herein for now.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="listing"><a class="anchor" href="#listing"></a>5.2. Listing</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a id="anchor-66"></a>All datasets <strong>should</strong> have a unique identifier. This is
+used to track datasets in the central repository and check for
+duplicates. The identifier is set by the authoritative source for the
+dataset.</p>
+</li>
+<li>
+<p><a href="#anchor-66">[REC. 1.]</a> implies that GCW Portal <strong>must</strong> not specify
+or change a unique identifier unless the dataset is hosted by the GCW
+Portal. This kind of support is currently not supported.</p>
+</li>
+<li>
+<p>OAI-PMH <strong>should</strong> be used for exchange of discovery metadata.</p>
+</li>
+<li>
+<p>OAI-PMH version 2 <strong>must</strong> be used if OAI-PMH is used for exchange of
+discovery metadata..</p>
+</li>
+<li>
+<p>When implementing OAI-PMH for large repositories containing much
+more than GCW relevant data, configuration of a dedicated cryosphere or
+GCW set <strong>should</strong> be supported as this reduce the load on the GCW Portal
+which otherwise has to perform filtering of all harvested metadata. The
+name of the set that GCW should harvest has to be communicated and names
+like “GCW” or “Cryosphere” is recommended. More information is available
+in <a href="http://www.openarchives.org/OAI/openarchivesprotocol.html#Set">OAI-PMH
+Set specification</a>.</p>
+</li>
+<li>
+<p>When records are deleted in the contributing data centres
+catalogues, information on this has to be communicated to the central
+catalogue. In order to achieve this OAI-PMH identifies the support for
+deleted records this through the <em>deletedRecord</em> element retrieved in
+the Identify request. Valid responses are no, persistent and transient.
+GCW contributing data centres <strong>must</strong> support <em>transient</em> and must
+maintain transient records for at least 1 month<sup class="footnote">[<a id="_footnoteref_8" class="footnote" href="#_footnotedef_8" title="View footnote.">8</a>]</sup>. More information on this feature is available in
+<a href="http://www.openarchives.org/OAI/openarchivesprotocol.html#DeletedRecords">OAI-PMH
+specification of deleted records</a>.</p>
+</li>
+<li>
+<p>The OAI-PMH interface by default offers discovery metadata in Dublin
+Core. This is insufficient for GCW purposes. Discovery metadata <strong>must</strong>
+be offered in ISO19115 and/or GCMD DIF. Details on these specifications
+are provided below. In order to properly identify the metadata standards
+in the responses provided by the OAI-PMH end point, it is recommended to
+use the following keywords: “dif” for GCMD DIF, “iso” for ISO19115
+minimum profile, “wis” for the WMO Core Profile of ISO19115 and “wigos”
+for WIGOS metadata in the “ListMetadataFormats” response. The latter is
+yet not fully defined in XML.</p>
+</li>
+<li>
+<p>CryoNet stations <strong>must</strong> provide WIS and WIGOS metadata<sup class="footnote">[<a id="_footnoteref_9" class="footnote" href="#_footnotedef_9" title="View footnote.">9</a>]</sup>.</p>
+</li>
+<li>
+<p>Discovery metadata <strong>must</strong> be available in the English language.</p>
+</li>
+<li>
+<p>OGC CSW version 2.0.2 <strong>must</strong> be used if OGC CSW is used for exchange
+of discovery metadata.</p>
+</li>
+<li>
+<p>If OGC CSW is used for exchange of discovery metadata, the
+implementation <strong>must</strong> support HTTP GET (key, value in URL).</p>
+</li>
+<li>
+<p>OGC CSW requests <strong>must </strong>not be embedded in messaging frameworks
+like SOAP. This will not be supported by the GCW Portal.</p>
+</li>
+<li>
+<p>ISO19115 records <strong>must</strong> at least state the unique id, temporal and
+spatial location, scientific content, responsible data centre and PI as
+well as links to the actual data<sup class="footnote">[<a id="_footnoteref_10" class="footnote" href="#_footnotedef_10" title="View footnote.">10</a>]</sup>.</p>
+</li>
+<li>
+<p>ISO19115 records, regardless of whether being mandatory elements or
+the full WMO Profile <strong>must</strong> contain GCMD Science Keywords describing the
+parameters provided in the data.</p>
+</li>
+<li>
+<p>CryoNet and contributing stations <strong>must </strong>have at least have one
+keyword from the WMO CategoryCode list <a href="#anchor-15">[13]</a><sup class="footnote">[<a id="_footnoteref_11" class="footnote" href="#_footnotedef_11" title="View footnote.">11</a>]</sup>.
+Relevant keywords for GCW are e.g. weatherObservations, meteorology,
+hydrology, climatology, glaciology.</p>
+</li>
+<li>
+<p>All times <strong>must</strong> be encoded as ISO8601 in the form
+YYYY-MM-DDTHH:MM:SS and in UTC.</p>
+</li>
+<li>
+<p>GCMD comes with a number of predefined controlled vocabularies that
+should be used in specific sections of the metadata. As indicated above
+some sections are free text in GCMD while it is suggested to use
+controlled vocabularies in GCW context<sup class="footnote">[<a id="_footnoteref_12" class="footnote" href="#_footnotedef_12" title="View footnote.">12</a>]</sup>.</p>
+</li>
+<li>
+<p>GCMD do not require a controlled vocabulary for the quality element.
+GCW records <strong>should</strong> to improve search results<sup class="footnote">[<a id="_footnoteref_13" class="footnote" href="#_footnotedef_13" title="View footnote.">13</a>]</sup>.</p>
+</li>
+<li>
+<p>Within GCMD DIF Related_URL has several subtypes. The existing
+<a href="http://gcmdservices.gsfc.nasa.gov/static/kms/rucontenttype/rucontenttype.csv">list
+of type and subtype</a> <strong>must</strong> be used to allow the GCW Portal to filter
+the purpose of the URLs provided. When types are “View Data Set Landing
+Page”, “View Extended Metadata”, “View Professional Home Page”, and
+“View Project Home Page”, no subtype is needed.</p>
+</li>
+<li>
+<p>OPeNDAP <strong>should</strong> be supported for data access. Data <strong>should</strong> be
+encoded according to the Climate and Forecast Convention version 1.6 or
+higher including the featureType attribute to identify gridded data
+versus time series, profiles or trajectories.</p>
+</li>
+<li>
+<p>OGC WFS and OGC WCS <strong>should</strong> not be used for data exchange.</p>
+</li>
+<li>
+<p>NetCDF following the Climate and Forecast Convention with NetCDF
+Attribute Convention for Dataset Discovery <strong>should </strong>be used as file
+format.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnotedef_1">
+<a href="#_footnoteref_1">1</a>. Needs to be further elaborated.
+</div>
+<div class="footnote" id="_footnotedef_2">
+<a href="#_footnoteref_2">2</a>. Details on how to avoid duplicate information in WIS and WIGOS needs to be defined.
+</div>
+<div class="footnote" id="_footnotedef_3">
+<a href="#_footnoteref_3">3</a>. For datasets not routed through GTS by other agencies.
+</div>
+<div class="footnote" id="_footnotedef_4">
+<a href="#_footnoteref_4">4</a>. Not fully tested yet.
+</div>
+<div class="footnote" id="_footnotedef_5">
+<a href="#_footnoteref_5">5</a>. <a href="http://cfconventions.org/faq.html#stdnames_mappings" class="bare">http://cfconventions.org/faq.html#stdnames_mappings</a>
+</div>
+<div class="footnote" id="_footnotedef_6">
+<a href="#_footnoteref_6">6</a>. <a href="http://apievangelist.com/2014/12/05/history-of-apis-noaa-apis-have-been-restful-for-over-20-years/" class="bare">http://apievangelist.com/2014/12/05/history-of-apis-noaa-apis-have-been-restful-for-over-20-years/</a>
+</div>
+<div class="footnote" id="_footnotedef_7">
+<a href="#_footnoteref_7">7</a>. provided data come in a harmonised form (i.e. NetCDF-CF according to the discrete sampling geometries) and there is a BUFR template for the data in question.
+</div>
+<div class="footnote" id="_footnotedef_8">
+<a href="#_footnoteref_8">8</a>. This may change.
+</div>
+<div class="footnote" id="_footnotedef_9">
+<a href="#_footnoteref_9">9</a>. In the current situation details on these standards should be discussed between the GCW Portal and CryoNet data centres.
+</div>
+<div class="footnote" id="_footnotedef_10">
+<a href="#_footnoteref_10">10</a>. This recommendation will be revisited.
+</div>
+<div class="footnote" id="_footnotedef_11">
+<a href="#_footnoteref_11">11</a>. There is currently no way of including this information in GCMD DIF, although a mapping to ISO TopicCategories may be used.
+</div>
+<div class="footnote" id="_footnotedef_12">
+<a href="#_footnoteref_12">12</a>. These vocabularies has to be developed by the GCW community through the Terminology Team.
+</div>
+<div class="footnote" id="_footnotedef_13">
+<a href="#_footnoteref_13">13</a>. This work should relate to international activities in this field in the context of e.g. GEO, ICES, WMO etc. and must be coordinated within GCW by the Terminology Team.
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2022-01-14 14:07:08 UTC
+</div>
+</div>
+</body>
+</html>
