@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile.asciidoctor
     volumes:
-      - ./:/workdir
+      - ./doc:/workdir
     command: asciidoctor -n gcw-dm-guidelines.adoc
 
   pdf:
@@ -14,5 +14,5 @@ services:
       context: .
       dockerfile: Dockerfile.asciidoctor
     volumes:
-      - ./:/workdir
+      - ./doc:/workdir
     command: asciidoctor-pdf -a pdf-themesdir=./ -a pdf-theme=gcw -n gcw-dm-guidelines.adoc
