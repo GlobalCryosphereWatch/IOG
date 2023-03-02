@@ -590,7 +590,7 @@ links.</p></td>
 <li><a href="#xml">4.3.6. XML</a></li>
 </ul>
 </li>
-<li><a href="#the-gcwslf-open-source-software-package">4.4. The GCW/SLF Open Source Software Package</a>
+<li><a href="#gcwsoftwarestack">4.4. The GCW/SLF Open Source Software Package</a>
 <ul class="sectlevel3">
 <li><a href="#background-4">4.4.1. Background</a></li>
 <li><a href="#overview">4.4.2. Overview</a></li>
@@ -919,10 +919,21 @@ All datasets must be documented in the English language.
 <div class="sect2">
 <h3 id="the-concept-of-metadata"><a class="anchor" href="#the-concept-of-metadata"></a>2.2. The concept of metadata</h3>
 <div class="paragraph">
-<p>GCW Portal metadata are divided in 4 categories which are briefly
-described in <a href="#metadata-types">Table 1</a>. Among these 4 categories, data providers or supporting
-data centres are supposed to provide 3 of them. Further below in this
-document, there are recommendations on how to provide these.</p>
+<p>GCW Portal metadata are divided in 4 categories which are briefly described in <a href="#metadata-types">Table 1</a>.
+Among these 4 categories, data providers or supporting data centres are supposed to provide 3 of them.
+Further below in this document, there are recommendations on how to provide these.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+Where possible the GCW Data Portal will try to link discovery metadata and site metadata, in particular for stations with WMO identifiers.
+</td>
+</tr>
+</table>
 </div>
 <table id="metadata-types" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. Brief introduction to different types of metadata.</caption>
@@ -944,66 +955,48 @@ document, there are recommendations on how to provide these.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Discovery metadata</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Used to find relevant data</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Discovery metadata are
-also called index metadata and are a digital version of the library
-index card. It describes who did what, where and when, how to access
-data and potential constraints on the data. It shall also link to
-further information on the data like site metadata. GCW is required to
-expose this information through WMO Information System as well.
-Discovery metadata are thus WIS metadata, although the GCW portal can
-translate to WIS for those not using WMO standards directly.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Discovery metadata are also called index metadata and are a digital version of the library index card.
+It describes who did what, where and when, how to access data and potential constraints on the data.
+It shall also link to further information on the data like site metadata.
+GCW is required to expose this information through WMO Information System as well.
+Discovery metadata are thus WIS metadata, although the GCW portal can translate to WIS for those not using WMO standards directly.</p></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>ISO19115</p>
-</div>
-<div class="paragraph">
-<p>ISO19115 (WIS)</p>
-</div>
-<div class="paragraph">
-<p>GCMD DIF</p>
+<p>ISO19115<br>
+ISO19115 (WIS)<br>
+GCMD DIF</p>
 </div></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Use metadata</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Used to understand data found</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Use metadata describe the
-actual content of a dataset and how it is encoded. The purpose is to
-enable the user to understand the data without any further
-communication. It describes content of variables using standardised
-vocabularies, units of variable, encoding of missing values, map
-projections etc.</p></td>
+actual content of a dataset and how it is encoded.
+The purpose is to enable the user to understand the data without any further communication.
+It describes content of variables using standardised vocabularies, units of variable, encoding of missing values, map projections etc.</p></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Climate and Forecast Convention</p>
-</div>
-<div class="paragraph">
-<p>BUFR</p>
-</div>
-<div class="paragraph">
-<p>GRIB</p>
+<p>Climate and Forecast Convention<br>
+BUFR<br>
+GRIB</p>
 </div></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Configuration metadata</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Used to tune portal services for datasets for
-users.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Configuration metadata are used to improve the services offered
-through a portal to the user community. This can be e.g. how to best
-visualise a product. This information is maintained by the GCW portal
-and is not covered by discovery or use metadata standards.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Used to tune portal services for datasets for users.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Configuration metadata are used to improve the services offered through a portal to the user community.
+This can be e.g. how to best visualise a product.
+This information is maintained by the GCW portal and is not covered by discovery or use metadata standards.</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Site metadata</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Use to understand data found</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Site metadata are used to
-describe the context of observational data. It describes the location of
-an observation, the instrumentation, procedures etc. To a certain extent
-it overlaps with discovery metadata, but also extends it. Site metadata
-can be used for observation network design.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Site metadata are used to describe the context of observational data.
+It describes the location of an observation, the instrumentation, procedures etc.
+To a certain extent it overlaps with discovery metadata, but also extends it.
+Site metadata can be used for observation network design.</p></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>WIGOS</p>
-</div>
-<div class="paragraph">
-<p>OGC O&amp;M</p>
+<p>WIGOS<br>
+OGC O&amp;M</p>
 </div></div></td>
 </tr>
 </tbody>
@@ -1014,44 +1007,27 @@ can be used for observation network design.</p></td>
 <div class="sect3">
 <h4 id="cryonet"><a class="anchor" href="#cryonet"></a>2.3.1. CryoNet</h4>
 <div class="paragraph">
-<p>The GCW surface observation network is comprised of a core component
-(CryoNet). These stations are following GCW measurement practises and
-have continuous temporal records of a certain length and quality.</p>
+<p>The GCW surface observation network is comprised of a core component (CryoNet).
+These stations are following GCW measurement practises and have continuous temporal records of a certain length and quality.</p>
 </div>
 <div class="paragraph">
-<p>Contributing stations are those that provide useful measurements of the
-cryosphere, but whose data records may be shorter or with large gaps, do
-not completely follow CryoNet measurement practices, or in some other
-way do not provide the quality and consistency of data required of
-CryoNet stations. These stations may be in remote, hard to access
-regions where cryospheric observations are scarce or in regions where
-they complement other
-<a href="http://globalcryospherewatch.org/about/cryosphere.html">cryospheric
+<p>Contributing stations are those that provide useful measurements of the cryosphere, but whose data records may be shorter or with large gaps, do not completely follow CryoNet measurement practices, or in some other way do not provide the quality and consistency of data required of CryoNet stations.
+These stations may be in remote, hard to access regions where cryospheric observations are scarce or in regions where they complement other <a href="http://globalcryospherewatch.org/about/cryosphere.html">cryospheric
 measurements</a>.</p>
 </div>
 <div class="paragraph">
-<p>CryoNet and contributing stations must expose metadata as well as data
-in GCW standardised form enabling the GCW Portal to catalogue all
-datasets, access archived data as well as feed real time data into real
-time data streams used by the WMO GCW user community.</p>
+<p>CryoNet and contributing stations must expose metadata as well as data in GCW standardised form enabling the GCW Portal to catalogue all datasets, access archived data as well as feed real time data into real time data streams used by the WMO GCW user community.</p>
 </div>
 <div class="paragraph">
-<p>All <a href="http://globalcryospherewatch.org/cryonet/site_types.html">CryoNet and
-contributing stations</a> must provide sufficient information to the
-minimal requirements of WIS <a href="#anchor-7">[4]</a> and
-WIGOS<a href="#anchor-9">[6]</a> metadata.</p>
+<p>All <a href="http://globalcryospherewatch.org/cryonet/site_types.html">CryoNet and contributing stations</a> must provide sufficient information to the minimal requirements of WIS <a href="#wis">RD 5</a> and WIGOS <a href="#wigos">RD 7</a> metadata.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="other"><a class="anchor" href="#other"></a>2.3.2. Other</h4>
 <div class="paragraph">
-<p>In addition to the stations listed above, there is a large number of
-data centres managing relevant datasets. In order to identify these
-datasets, the GCW Portal is harvesting metadata from a number of data
-centres and filter the information for information about the cryosphere.
-Data centres wishing to contribute to this will also need to follow some
-minimal requirements concerning interoperability at the metadata and
-data level.</p>
+<p>In addition to the stations listed above, there is a large number of data centres managing relevant datasets.
+In order to identify these datasets, the GCW Portal is harvesting metadata from a number of data centres and filter the information for information about the cryosphere.
+Data centres wishing to contribute to this will also need to follow some minimal requirements concerning interoperability at the metadata and data level.</p>
 </div>
 <div class="paragraph">
 <p>These requirements are provided below.</p>
@@ -1061,41 +1037,35 @@ data level.</p>
 <div class="sect2">
 <h3 id="quick-reference-to-recommended-interfaces-and-standards"><a class="anchor" href="#quick-reference-to-recommended-interfaces-and-standards"></a>2.4. Quick reference to recommended interfaces and standards</h3>
 <div class="paragraph">
-<p>The text below provides a brief introduction to relevant interfaces for
-GCW data management. However, in order to establish a manageable system,
-the number of interfaces has to be a minimum, otherwise the development
-and maintenance costs of the Portal will be too high and not
-sustainable. The recommended interfaces for data centres integrating
-with the GCW Portal are:</p>
+<p>The text below provides a brief introduction to relevant interfaces for GCW data management.
+However, in order to establish a manageable system, the number of interfaces has to be a minimum, otherwise the development and maintenance costs of the Portal will be too high and not sustainable.
+The recommended interfaces for data centres integrating with the GCW Portal are:</p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Discovery metadata</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Provide discovery metadata enabling users to search for relevant
-information using ISO19115 with GCMD Science Keywords for variables or
-GCMD DIF records through OAI-PMH.</p>
-</li>
-</ol>
-</div>
-</li>
-<li>
-<p>Data</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Discovery metadata</dt>
+<dd>
+<p>Provide discovery metadata enabling users to search for relevant information using ISO-19115 with GCMD Science Keywords <a href="#gcmdkeywords">RD 14</a> for variables or GCMD DIF <a href="#gcmddif">RD 13</a> records through OAI-PMH <a href="#oaipmh">RD 10</a>.</p>
+</dd>
+<dt class="hdlist1">Data</dt>
+<dd>
 <p>Provide data through OPeNDAP using the CF-1.6 convention or higher.
-One time series per stream, i.e. do not combine many stations into one
-structure. This allows streaming of data and handling of both real time
-and archived data.</p>
-</li>
-</ol>
+One time series per stream, i.e. do not combine many stations into one structure.
+This allows streaming of data and handling of both real time and archived data.</p>
+</dd>
+</dl>
 </div>
-</li>
-</ol>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+Concerning ISO-19115 metadata, both ISO-19115-1 and ISO-19115-2 is supported.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>Further details are provided below.</p>
@@ -1111,57 +1081,13 @@ and archived data.</p>
 <div class="sect3">
 <h4 id="background-2"><a class="anchor" href="#background-2"></a>3.1.1. Background</h4>
 <div class="paragraph">
-<p>Discovery metadata are generated by the data centres hosting the data
-sets. Metadata are harvested and ingested in the central catalogue for
-usage by the GCW Portal user community.</p>
+<p>Discovery metadata are generated by the data centres hosting the data sets.
+Metadata are harvested and ingested in the central catalogue for usage by the GCW Portal user community.</p>
 </div>
 <div class="paragraph">
-<p>The GCW Portal harvest discovery metadata to a central repository that
-facilitates the search process for users. The GCW search is not based on
-distributed search (forwarding search criteria to supporting catalogues)
-as this is a slower process compared to searching in a central
-repository. Discovery metadata are harvested at regular intervals and
-checked for conformance according to the standards identified herein and
-in <a href="#anchor-5">[2]</a>.</p>
-</div>
-<div class="paragraph">
-<p>Regardless of the metadata standard used and the mechanism for transport
-of the information the following recommendation should be implemented at
-the data centre repositories.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="exchange-mechanisms-for-discovery-metadata"><a class="anchor" href="#exchange-mechanisms-for-discovery-metadata"></a>3.1.2. Exchange mechanisms for discovery metadata</h4>
-<div class="sect4">
-<h5 id="introduction-1"><a class="anchor" href="#introduction-1"></a>3.1.2.1. Introduction</h5>
-<div class="paragraph">
-<p>Discovery metadata should be exposed using a suitable interface that
-allows information on existing datasets as well as changes to the
-inventory to be conveyed to the GCW Portal. Suitable interfaces for this
-are OAI-PMH and OGC CSW<sup class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnotedef_4" title="View footnote.">4</a>]</sup>. Other
-interfaces may be evaluated, but to ensure a cost effective solution the
-number of interfaces must be limited.</p>
-</div>
-<div class="paragraph">
-<p>OAI-PMH is the recommended interface to use due to its simplicity and
-cost effective nature. A number of software solutions supporting this
-are freely available and a free and open software package (see
-<a href="#anchor-33">[3.3]</a>) will be provided.</p>
-</div>
-</div>
-<div class="sect4">
-<h5 id="oai-pmh"><a class="anchor" href="#oai-pmh"></a>3.1.2.2. OAI-PMH</h5>
-<div class="paragraph">
-<p>The Open Archives Initiatives Protocol for Metadata Harvesting (OAI-PMH)
-is the recommended interface for exchanging metadata with the GCW
-Portal. It is a cost effective and robust implementation for exchange of
-metadata between data centres, is used extensively by WMO Information
-System and is under consideration for WIGOS metadata exchange. It is
-much cheaper to implement than most alternatives and there are a number
-of tools available. Some of these are listed on <a href="#anchor-10">[8]</a>.
-Some not listed but worth examining are
-<a href="https://pypi.python.org/pypi/pyoai">pyOAI</a> and
-<a href="http://pypi.python.org/pypi/MOAI">MOAI</a>.</p>
+<p>The GCW Portal harvest discovery metadata to a central repository that facilitates the search process for users.
+The GCW search is not based on distributed search (forwarding search criteria to supporting catalogues) as this is a slower process compared to searching in a central repository.
+Discovery metadata are harvested at regular intervals and checked for conformance according to the standards identified herein and in <a href="#wis">RD 5</a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1170,197 +1096,138 @@ Some not listed but worth examining are
 <div class="title">Note</div>
 </td>
 <td class="content">
-Text to be updated, MOAI and pyAOI are not updated anymore, better use pyCSW or other alternatives.
+The harvesting process is based on a daily incremental harvest where possible, with a monthly full harvest where existing information is overwritten.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>When implementing OAI-PMH there is a number of GCW recommendations (see
-<a href="#anchor-35">[3.3.2]</a>) that are based on experience during the initial
-period of metadata exchange for GCW.</p>
+<p>Regardless of the metadata standard used and the mechanism for transport of the information the following recommendation should be implemented at the data centre repositories.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="exchange-mechanisms-for-discovery-metadata"><a class="anchor" href="#exchange-mechanisms-for-discovery-metadata"></a>3.1.2. Exchange mechanisms for discovery metadata</h4>
+<div class="sect4">
+<h5 id="introduction-1"><a class="anchor" href="#introduction-1"></a>3.1.2.1. Introduction</h5>
+<div class="paragraph">
+<p>Discovery metadata should be exposed using a suitable interface that allows information on existing datasets as well as changes to the inventory to be conveyed to the GCW Portal.
+Suitable interfaces for this are OAI-PMH <a href="#oaipmh">RD 10</a> and OGC CSW <a href="#ogccsw">RD 12</a>.
+Support for schema.org and DCAT-AP is in progress.
+Other interfaces may be evaluated, but to ensure a cost effective solution the number of interfaces must be limited.</p>
 </div>
 <div class="paragraph">
-<p><em>OAI-PMH serving GCMD DIF is currently the preferred mechanism for interacting with the GCW Data Portal at the discovery metadata level. Properly formatted ISO19115 (e.g. the INSPIRE profile) is also supported.</em></p>
+<p>OAI-PMH is the recommended interface to use due to its simplicity and cost effective nature.
+A number of software solutions supporting this are freely available and a free and open software package (see <a href="#gcwsoftwarestack">Section 4.4</a>) will be provided.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="oai-pmh"><a class="anchor" href="#oai-pmh"></a>3.1.2.2. OAI-PMH</h5>
+<div class="paragraph">
+<p>The Open Archives Initiatives Protocol for Metadata Harvesting (OAI-PMH, <a href="#oaipmh">RD 10</a>) is the recommended interface for exchanging metadata with the GCW Portal.
+It is a cost effective and robust implementation for exchange of metadata between data centres and was extensively used during the International polary year 2006-2008.
+It is much cheaper to implement than most alternatives and there are a number of tools available <a href="#oaipmhtools">RD 11</a>.
+For new implementations <a href="https://geonetwork-opensource.org/">GeoNetwork</a> and <a href="https://pycsw.org/">pycsw</a> are recommended solutions that work pretty well in relation to the GCW Data Portal.</p>
+</div>
+<div class="paragraph">
+<p>When implementing OAI-PMH there is a number of GCW recommendations (see
+<a href="#requirements">Chapter 5</a>) that are based on experience during the initial
+period of metadata exchange for GCW.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+OAI-PMH serving GCMD DIF is currently the preferred mechanism for interacting with the GCW Data Portal at the discovery metadata level.
+Properly formatted ISO19115 (e.g. the INSPIRE profile) is also supported.
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect4">
 <h5 id="ogc-csw"><a class="anchor" href="#ogc-csw"></a>3.1.2.3. OGC CSW</h5>
 <div class="paragraph">
-<p>The Open Geospatial Consortium Catalogue Services for the Web (OGC CSW <a href="#anchor-11">[9]</a>) is another standard for exposing the content of a catalogue in a standardised form. As for OAI-PMH records are exposed using XML. Compared to OAI-PMH, OGC CSW is a bit more expensive to implement from the specification although there are several tools supporting it. It is the recommended exchange mechanism for metadata within the European framework INSPIRE and will be supported by the GCW Portal although OAI-PMH is recommended from a cost benefit perspective.  If OGC CSW is used it must provide ISO19139 records through GET. The keyword element has to be populated with relevant GCMD Science Keywords.</p>
+<p>The Open Geospatial Consortium Catalogue Services for the Web (OGC CSW, <a href="#ogccsw">RD 12</a>) is another standard for exposing the content of a catalogue in a standardised form.
+As for OAI-PMH records are exposed using XML.
+Compared to OAI-PMH, OGC CSW is a bit more expensive to implement from the specification although there are several tools supporting it (e.g. GeoNetwork and pycsw as mentioned above).
+It is the recommended exchange mechanism for metadata within the European framework INSPIRE and will be supported by the GCW Portal although OAI-PMH is recommended from a cost benefit perspective.
+If OGC CSW is used it must provide ISO-19115/ISO-19139 records through GET.
+The keyword element has to be populated with relevant GCMD Science Keywords and the purpose of the keyword has to be identified by attributes.</p>
 </div>
-<div class="paragraph">
-<p>Details on how to interact with a OGC CSW interface has to be discussed when there is a GCW CryoNet station that wants to use this interface.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+Details on how to interact with a OGC CSW interface has to be discussed when there is a GCW CryoNet station that wants to use this interface.
+</td>
+</tr>
+</table>
 </div>
-<div class="paragraph">
-<p><em>The GCW Data Portal is harvesting ISO19115/ISO19139 over OGC CSW from a number of data centres. There are challenges and e.g. when harvesting from GeoNetwork, but these can be sorted out in a dialogue.</em></p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+The GCW Data Portal is harvesting ISO19115/ISO19139 over OGC CSW from a number of data centres.
+There are challenges and e.g. when harvesting from GeoNetwork, but these can be sorted out in a dialogue.
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect4">
 <h5 id="other-1"><a class="anchor" href="#other-1"></a>3.1.2.4. Other</h5>
 <div class="paragraph">
-<p>Other mechanisms like OpenSearch are under implementation, but is
-currently not supported. CryoNet data centres wishing to test this needs
-to establish a dialogue with the GCW Portal.</p>
+<p>Other mechanisms like OpenSearch, schema.org and DCAT-AP are under implementation, but is currently not fully supported.
+CryoNet data centres wishing to test this needs to establish a dialogue with the GCW Portal.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+Harvesting using schema.org according to ESIP&#8217;s science on schema org is currently being tested against NSF ADC, CCADI and GEM.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
 <div class="sect3">
 <h4 id="structures-for-discovery-metadata"><a class="anchor" href="#structures-for-discovery-metadata"></a>3.1.3. Structures for discovery metadata</h4>
 <div class="paragraph">
-<p>The GCW Portal is consuming discovery metadata that are describing the
-data. In order to make the portal work properly and to ensure
-integration with WMO systems like WIS, the following discovery metadata
-elements are required ().</p>
+<p>The GCW Data Portal is consuming discovery metadata that are describing the data.
+The information model used by the GCW Data Portal is indicated in <a href="#mmd-uml">Figure 2</a>.</p>
 </div>
 <div class="paragraph">
-<p>Table 2: GCW discovery metadata elements, purpose and mapping to DIF and
-ISO19115. Status is one of Mandatory (M), Optional (O) or Recommended
-&#174;.</p>
+<p>This is a conceptual illustration of the model, where elements are grouped at a logical level to indicate purpose.</p>
 </div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Dataset Identifier</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A unique ID for the dataset issued by the
-responsible data centre.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">M</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Entry_ID</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">MD_Metadata&gt; MD_Reference&gt;
-MD_Identifier</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Dataset Title</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A brief descriptive title of the dataset suitable for
-listing purposes.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">M</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Entry_Title</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CI_Citation</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Dataset Abstract</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A brief description of the data set along with the
-purpose of the data. This allows potential users to determine if the
-data set is useful for their needs.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">M</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Summary</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">MD_Metadata&gt;
-MD_Identification</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Dataset Parameters</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Specification of keywords from a controlled
-vocabulary describing the content of the dataset and that consumers can
-use to identify the dataset.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">M</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Parameters</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">MD_Identification&gt;
-MD_Keywords</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Dataset Temporal Coverage</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Specification of the start and stop dates of
-the dataset. If currently operating, the stop date is empty.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">M</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Temporal Coverage</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EX_Extent&gt; EX_TemporalExtent</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Dataset Spatial Coverage</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A bounding box for the data specifying the
-location of the dataset using latitudes and longitudes. Latitudes are
-positive northwards and longitudes eastwards.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">M</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Spatial Coverage</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EX_Extent&gt; EX_GeographicBoundingBox</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Dataset Use Constraints</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A description of what a consumer can do with
-the data after accessing them. In order to protect intellectual property
-rights (e.g. non commercial use).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">M</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Use Constraints</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">MD_Constraints&gt;
-MD_LegalConstraints</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Dataset Creator</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Details on the institution and/or people responsible
-for generation of the dataset.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">M</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Personnel</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CI_Citation&gt;
-CI_ResponsiblePartyInfo</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Dataset Progress</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A specification of whether the data production is
-ongoing, complete or planned.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Data Set Progress</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">MD_Identification</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Dataset Operational Status</p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">O</p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Dataset Access</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Internet links to the data. The type of service behind
-a link need to be identified by using proper keywords. GCMD content type
-keywords are required.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">M</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Related URL</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CI_Citation&gt; CI_OnlineResource</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Dataset Related Information</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Internet link to project or site specific
-websites providing context information for the dataset.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Related URL</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CI_Citation&gt; CI_OnlineResource</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Dataset Quality</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A freetext formulation on the quality of the data.
-E.g. whether data has been quality controlled or not.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Quality</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Data Centre</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The Data Center, organisation or institution responsible
-for maintaining and publishing the data. This is not to be confused with
-the Dataset Creator. The information required covers relevant contact
-information as well as URL to the website.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">M</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Data Center</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CI_ResponsiblePartyInfo</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Discovery Metadata Last Revision</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Specification of the creation date
-for the discovery metadata or the last revision. The form YYYY-MM-DD
-must be used.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">M</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Last DIF Revision Date</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">MD_Metadata&gt; CI_Date &gt; CI_Date</p></td>
-</tr>
-</tbody>
-</table>
+<div id="mmd-uml" class="imageblock text-center">
+<div class="content">
+<img src="diagrams/mmd-uml.png" alt="mmd uml">
+</div>
+<div class="title">Figure 2. Conceptual model of the discovery metadata model.</div>
+</div>
+<div class="paragraph">
+<p>For more details, please check out the MMD specification at <a href="https://htmlpreview.github.io/?https://github.com/metno/mmd/blob/master/doc/mmd-specification.html" class="bare">https://htmlpreview.github.io/?https://github.com/metno/mmd/blob/master/doc/mmd-specification.html</a>.</p>
+</div>
+<div class="paragraph">
+<p><a href="#discovery-model-elements">[discovery-model-elements]</a> below shows the elements of the information model and mappings against ISO19115 and GCMD DIF.
+Further mappings are under development.</p>
+</div>
+<div class="paragraph">
+<p>Unresolved directive in gcw-dm-guidelines.adoc - include::discovery-model-mapping.adoc[]</p>
+</div>
 <div class="sect4">
 <h5 id="iso19115"><a class="anchor" href="#iso19115"></a>3.1.3.1. ISO19115<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></h5>
 <div class="paragraph">
@@ -1372,7 +1239,7 @@ model for the GCW Portal is currently built around parameter
 descriptions using the GCMD Science Keywords <a href="#anchor-13">[11]</a>. A
 mapping exist between Climate and Forecast standard names
 <a href="#anchor-14">[12]</a> and GCMD Science
-Keywords<sup class="footnote">[<a id="_footnoteref_5" class="footnote" href="#_footnotedef_5" title="View footnote.">5</a>]</sup>,
+Keywords<sup class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnotedef_4" title="View footnote.">4</a>]</sup>,
 although this not actively maintained currently. GCW is working with
 WIGOS to establish a dedicated controlled vocabulary for GCW purpose.</p>
 </div>
@@ -1504,7 +1371,7 @@ metadata follows the data and the application of a data stream removes
 the step of downloading a file and keeping track of this while working
 on the data. It also allows segmentation of data in variable space and
 space and time and it is
-RESTful<sup class="footnote">[<a id="_footnoteref_6" class="footnote" href="#_footnotedef_6" title="View footnote.">6</a>]</sup>.</p>
+RESTful<sup class="footnote">[<a id="_footnoteref_5" class="footnote" href="#_footnotedef_5" title="View footnote.">5</a>]</sup>.</p>
 </div>
 <div class="paragraph">
 <p>OPeNDAP is the recommended way to exchange data within GCW. It allows
@@ -1614,7 +1481,7 @@ To be updated with information about OGC API and WIS 2.0 perspectives.
 <p>Binary Universal Form for the Representation of meteorological data (BUFR) is a binary data format maintained by WMO. Its main purpose is operational exchange of real time data and it is adapted for robust transfer on varying bandwidth connections. Data that are supposed to be exchanged using WMO Global Telecommunication System (GTS) should be encoded in WMO BUFR. BUFR is a table driven file format, implying that the format is not self explaining and the user has to have the correct table to understand the content.</p>
 </div>
 <div class="paragraph">
-<p>If CryoNet sites are providing observational data according to the NetCDF/CF convention over OPeNDAP, the GCW Portal will, if requested, create BUFR files and submit these onto GTS if required by the GCW Community.<sup class="footnote">[<a id="_footnoteref_7" class="footnote" href="#_footnotedef_7" title="View footnote.">7</a>]</sup> Furthermore, currently the GCW Portal converts GTS circulated BUFR to NetCDF/CF, this functionality of moving between NetCDF and BUFR will be extended and incorporated as a transformation service in the GCW Portal as well.</p>
+<p>If CryoNet sites are providing observational data according to the NetCDF/CF convention over OPeNDAP, the GCW Portal will, if requested, create BUFR files and submit these onto GTS if required by the GCW Community.<sup class="footnote">[<a id="_footnoteref_6" class="footnote" href="#_footnotedef_6" title="View footnote.">6</a>]</sup> Furthermore, currently the GCW Portal converts GTS circulated BUFR to NetCDF/CF, this functionality of moving between NetCDF and BUFR will be extended and incorporated as a transformation service in the GCW Portal as well.</p>
 </div>
 </div>
 <div class="sect3">
@@ -1664,7 +1531,7 @@ that combination of data from various sources is not straightforward.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="the-gcwslf-open-source-software-package"><a class="anchor" href="#the-gcwslf-open-source-software-package"></a>4.4. The GCW/SLF Open Source Software Package</h3>
+<h3 id="gcwsoftwarestack"><a class="anchor" href="#gcwsoftwarestack"></a>4.4. The GCW/SLF Open Source Software Package</h3>
 <div class="sect3">
 <h4 id="background-4"><a class="anchor" href="#background-4"></a>4.4.1. Background</h4>
 <div class="paragraph">
@@ -1692,7 +1559,7 @@ dataset. All projects are available under open source licenses.</p>
 <div class="content">
 <img src="illustrations/gcw-cryonet-valuechain.png" alt="gcw cryonet valuechain">
 </div>
-<div class="title">Figure 2. The GCW CryoNet value chain.</div>
+<div class="title">Figure 3. The GCW CryoNet value chain.</div>
 </div>
 </div>
 <div class="sect3">
@@ -1746,7 +1613,7 @@ development.</p>
 <div class="content">
 <img src="illustrations/cryonet-software-stack.png" alt="cryonet software stack">
 </div>
-<div class="title">Figure 3. An overview of the main components of the GCW Software package developed by WSL/SLF.</div>
+<div class="title">Figure 4. An overview of the main components of the GCW Software package developed by WSL/SLF.</div>
 </div>
 </div>
 </div>
@@ -1803,7 +1670,7 @@ catalogue. In order to achieve this OAI-PMH identifies the support for
 deleted records this through the <em>deletedRecord</em> element retrieved in
 the Identify request. Valid responses are no, persistent and transient.
 GCW contributing data centres <strong>must</strong> support <em>transient</em> and must
-maintain transient records for at least 1 month<sup class="footnote">[<a id="_footnoteref_8" class="footnote" href="#_footnotedef_8" title="View footnote.">8</a>]</sup>. More information on this feature is available in
+maintain transient records for at least 1 month<sup class="footnote">[<a id="_footnoteref_7" class="footnote" href="#_footnotedef_7" title="View footnote.">7</a>]</sup>. More information on this feature is available in
 <a href="http://www.openarchives.org/OAI/openarchivesprotocol.html#DeletedRecords">OAI-PMH
 specification of deleted records</a>.</p>
 </li>
@@ -1819,7 +1686,7 @@ for WIGOS metadata in the “ListMetadataFormats” response. The latter is
 yet not fully defined in XML.</p>
 </li>
 <li>
-<p>CryoNet stations <strong>must</strong> provide WIS and WIGOS metadata<sup class="footnote">[<a id="_footnoteref_9" class="footnote" href="#_footnotedef_9" title="View footnote.">9</a>]</sup>.</p>
+<p>CryoNet stations <strong>must</strong> provide WIS and WIGOS metadata<sup class="footnote">[<a id="_footnoteref_8" class="footnote" href="#_footnotedef_8" title="View footnote.">8</a>]</sup>.</p>
 </li>
 <li>
 <p>Discovery metadata <strong>must</strong> be available in the English language.</p>
@@ -1839,7 +1706,7 @@ like SOAP. This will not be supported by the GCW Portal.</p>
 <li>
 <p>ISO19115 records <strong>must</strong> at least state the unique id, temporal and
 spatial location, scientific content, responsible data centre and PI as
-well as links to the actual data<sup class="footnote">[<a id="_footnoteref_10" class="footnote" href="#_footnotedef_10" title="View footnote.">10</a>]</sup>.</p>
+well as links to the actual data<sup class="footnote">[<a id="_footnoteref_9" class="footnote" href="#_footnotedef_9" title="View footnote.">9</a>]</sup>.</p>
 </li>
 <li>
 <p>ISO19115 records, regardless of whether being mandatory elements or
@@ -1848,7 +1715,7 @@ parameters provided in the data.</p>
 </li>
 <li>
 <p>CryoNet and contributing stations <strong>must </strong>have at least have one
-keyword from the WMO CategoryCode list <a href="#anchor-15">[13]</a><sup class="footnote">[<a id="_footnoteref_11" class="footnote" href="#_footnotedef_11" title="View footnote.">11</a>]</sup>.
+keyword from the WMO CategoryCode list <a href="#anchor-15">[13]</a><sup class="footnote">[<a id="_footnoteref_10" class="footnote" href="#_footnotedef_10" title="View footnote.">10</a>]</sup>.
 Relevant keywords for GCW are e.g. weatherObservations, meteorology,
 hydrology, climatology, glaciology.</p>
 </li>
@@ -1860,11 +1727,11 @@ YYYY-MM-DDTHH:MM:SS and in UTC.</p>
 <p>GCMD comes with a number of predefined controlled vocabularies that
 should be used in specific sections of the metadata. As indicated above
 some sections are free text in GCMD while it is suggested to use
-controlled vocabularies in GCW context<sup class="footnote">[<a id="_footnoteref_12" class="footnote" href="#_footnotedef_12" title="View footnote.">12</a>]</sup>.</p>
+controlled vocabularies in GCW context<sup class="footnote">[<a id="_footnoteref_11" class="footnote" href="#_footnotedef_11" title="View footnote.">11</a>]</sup>.</p>
 </li>
 <li>
 <p>GCMD do not require a controlled vocabulary for the quality element.
-GCW records <strong>should</strong> to improve search results<sup class="footnote">[<a id="_footnoteref_13" class="footnote" href="#_footnotedef_13" title="View footnote.">13</a>]</sup>.</p>
+GCW records <strong>should</strong> to improve search results<sup class="footnote">[<a id="_footnoteref_12" class="footnote" href="#_footnotedef_12" title="View footnote.">12</a>]</sup>.</p>
 </li>
 <li>
 <p>Within GCMD DIF Related_URL has several subtypes. The existing
@@ -1906,39 +1773,36 @@ format.</p>
 <a href="#_footnoteref_3">3</a>. For datasets not routed through GTS by other agencies.
 </div>
 <div class="footnote" id="_footnotedef_4">
-<a href="#_footnoteref_4">4</a>. Not fully tested yet.
+<a href="#_footnoteref_4">4</a>. <a href="http://cfconventions.org/faq.html#stdnames_mappings" class="bare">http://cfconventions.org/faq.html#stdnames_mappings</a>
 </div>
 <div class="footnote" id="_footnotedef_5">
-<a href="#_footnoteref_5">5</a>. <a href="http://cfconventions.org/faq.html#stdnames_mappings" class="bare">http://cfconventions.org/faq.html#stdnames_mappings</a>
+<a href="#_footnoteref_5">5</a>. <a href="http://apievangelist.com/2014/12/05/history-of-apis-noaa-apis-have-been-restful-for-over-20-years/" class="bare">http://apievangelist.com/2014/12/05/history-of-apis-noaa-apis-have-been-restful-for-over-20-years/</a>
 </div>
 <div class="footnote" id="_footnotedef_6">
-<a href="#_footnoteref_6">6</a>. <a href="http://apievangelist.com/2014/12/05/history-of-apis-noaa-apis-have-been-restful-for-over-20-years/" class="bare">http://apievangelist.com/2014/12/05/history-of-apis-noaa-apis-have-been-restful-for-over-20-years/</a>
+<a href="#_footnoteref_6">6</a>. provided data come in a harmonised form (i.e. NetCDF-CF according to the discrete sampling geometries) and there is a BUFR template for the data in question.
 </div>
 <div class="footnote" id="_footnotedef_7">
-<a href="#_footnoteref_7">7</a>. provided data come in a harmonised form (i.e. NetCDF-CF according to the discrete sampling geometries) and there is a BUFR template for the data in question.
+<a href="#_footnoteref_7">7</a>. This may change.
 </div>
 <div class="footnote" id="_footnotedef_8">
-<a href="#_footnoteref_8">8</a>. This may change.
+<a href="#_footnoteref_8">8</a>. In the current situation details on these standards should be discussed between the GCW Portal and CryoNet data centres.
 </div>
 <div class="footnote" id="_footnotedef_9">
-<a href="#_footnoteref_9">9</a>. In the current situation details on these standards should be discussed between the GCW Portal and CryoNet data centres.
+<a href="#_footnoteref_9">9</a>. This recommendation will be revisited.
 </div>
 <div class="footnote" id="_footnotedef_10">
-<a href="#_footnoteref_10">10</a>. This recommendation will be revisited.
+<a href="#_footnoteref_10">10</a>. There is currently no way of including this information in GCMD DIF, although a mapping to ISO TopicCategories may be used.
 </div>
 <div class="footnote" id="_footnotedef_11">
-<a href="#_footnoteref_11">11</a>. There is currently no way of including this information in GCMD DIF, although a mapping to ISO TopicCategories may be used.
+<a href="#_footnoteref_11">11</a>. These vocabularies has to be developed by the GCW community through the Terminology Team.
 </div>
 <div class="footnote" id="_footnotedef_12">
-<a href="#_footnoteref_12">12</a>. These vocabularies has to be developed by the GCW community through the Terminology Team.
-</div>
-<div class="footnote" id="_footnotedef_13">
-<a href="#_footnoteref_13">13</a>. This work should relate to international activities in this field in the context of e.g. GEO, ICES, WMO etc. and must be coordinated within GCW by the Terminology Team.
+<a href="#_footnoteref_12">12</a>. This work should relate to international activities in this field in the context of e.g. GEO, ICES, WMO etc. and must be coordinated within GCW by the Terminology Team.
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-03-02 21:56:01 UTC
+Last updated 2023-03-02 22:42:30 UTC
 </div>
 </div>
 </body>
