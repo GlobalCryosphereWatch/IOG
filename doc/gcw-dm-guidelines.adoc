@@ -21,7 +21,7 @@ Date: {docdate}
 |=======================================================================
 |Version |Date |Comment |Responsible
 
-|1.0 |2023-02-28|Restructured. a| Øystein Godøy
+|1.0 |2023-03-03|Restructured and cleaned. Several intermediate versions are merged herein. a| Øystein Godøy
 
 |0.5 |2017-12-31 |A major rewrite with restructuring of the content,
 rephrasing requirements and addition of information on both the GCW
