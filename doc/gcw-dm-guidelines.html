@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.17">
-<meta name="author" content="Date: 2022-01-21">
+<meta name="generator" content="Asciidoctor 2.0.18">
+<meta name="author" content="Date: 2023-03-02">
 <title>Technical documentation: Guidance for data centres contributing to GCW</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -85,10 +85,10 @@ code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;
 ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
 ul,ol{margin-left:1.5em}
 ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
-ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
-ul.square{list-style-type:square}
 ul.circle{list-style-type:circle}
 ul.disc{list-style-type:disc}
+ul.square{list-style-type:square}
+ul.circle ul:not([class]),ul.disc ul:not([class]),ul.square ul:not([class]){list-style:inherit}
 ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
 dl dt{margin-bottom:.3125em;font-weight:bold}
 dl dd{margin-bottom:1.25em}
@@ -441,7 +441,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="header">
 <h1>Technical documentation: Guidance for data centres contributing to GCW</h1>
 <div class="details">
-<span id="author" class="author">Date: 2022-01-21</span><br>
+<span id="author" class="author">Date: 2023-03-02</span><br>
 </div>
 </div>
 <div id="content">
@@ -466,9 +466,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0.x</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">202?-??-??</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Many updates&#8230;&#8203;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2023-02-28</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Restructured.</p></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>Øystein Godøy</p>
 </div></div></td>
@@ -614,140 +614,228 @@ links.</p></td>
 <div class="sect2">
 <h3 id="background"><a class="anchor" href="#background"></a>1.1. Background</h3>
 <div class="paragraph">
-<p>The intention of the GCW Portal is to be the entry point to datasets
-describing the cryosphere and form the information basis for the
-assessment activities of the Global Cryosphere Watch. It offers a web
-interface that contains information about datasets through discovery
-metadata provided by the data providers (or host data centre). These
-discovery metadata are harvested on a regular basis from data centres
-actually managing the data on behalf of the owners/providers of the
-data.</p>
+<p>The intention of the GCW Portal is to be the entry point to datasets describing the cryosphere and form the information basis for the assessment activities of the Global Cryosphere Watch <a href="#gcwwebsite">RD 4</a>.
+It offers a web interface that contains information about datasets through discovery metadata provided by the data providers (or host data centre).
+These discovery metadata are harvested on a regular basis from data centres actually managing the data on behalf of the owners/providers of the data.</p>
 </div>
 <div class="paragraph">
-<p>The GCW Portal utilises interoperability interfaces to metadata and data
-in order to provide a unified view on the datasets that are relevant for
-GCW activities. The GCW Portal is also the interface for GCW metadata to
-WMO Information System (WIS) and WMO Integrated Global Observing System
-(WIGOS)<sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup>. The GCW Portal will also facilitate
-real time access to data through Internet and WMO GTS<sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnotedef_3" title="View footnote.">3</a>]</sup> as requested by the
-user community. This require a certain level of interoperability at the
-data level in addition to at the metadata level. On GTS, WMO formats
-(BUFR and GRIB) are required and the GCW Portal can transform data into
-these formats in the dissemination process, provided contributing data
-centres are following the required standards for documentation and
-interfaces to data.</p>
+<p>The GCW Portal utilises interoperability interfaces to metadata and data in order to provide a unified view on the datasets that are relevant for GCW activities.
+The GCW Portal is also the interface for GCW metadata to WMO Information System (WIS, <a href="#wis">RD 5</a>) and WMO Integrated Global Observing System (WIGOS, <a href="#wigos">RD 7</a>)<sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup>.
+The GCW Portal will also facilitate real time access to data through Internet and WMO GTS<sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnotedef_3" title="View footnote.">3</a>]</sup> as requested by the user community.
+This require a certain level of interoperability at the data level in addition to at the metadata level.
+On GTS <a href="#gts">RD 6</a>, WMO formats (BUFR and GRIB) are required and the GCW Portal can transform data into these formats in the dissemination process, provided contributing data centres are following the required standards for documentation and interfaces to data.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+WIS 2.0 is replacing WMO GTS with AMQP/MQTT, how GCW will interact with this is under development.
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect2">
 <h3 id="scope"><a class="anchor" href="#scope"></a>1.2. Scope</h3>
 <div class="paragraph">
-<p>This document provides an overview of the GCW Portal system and
-identifies interoperability tools that simplifies integration of data
-from a number of sources to a unified virtual data management system.</p>
+<p>This document provides an overview of the GCW Portal system and identifies interoperability tools that simplifies integration of data from a number of sources to a unified virtual data management system.
+Details of the GCW Data Portal architecture is indicated in <a href="#add">RD 2</a>.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="intended-audience"><a class="anchor" href="#intended-audience"></a>1.3. Intended audience</h3>
 <div class="paragraph">
-<p>System managers at the data centres contributing to the GCW Portal
-system are the intended audience of this manual. This includes data
-centres managing CryoNet data as well as other data centres managing
-cryospheric data. Requirements are stricter for data centres managing
-CryoNet stations data than for other contributing data centres.
-Concerning the roles that should be defined at contributing data
-centres, the reader is referred to <a href="#anchor-5">[2]</a>.</p>
+<p>System managers at the data centres contributing to the GCW Portal system are the intended audience of this manual.
+This includes data centres managing CryoNet data as well as other data centres managing cryospheric data.
+Requirements are stricter for data centres managing CryoNet stations data than for other contributing data centres.
+Concerning the roles that should be defined at contributing data centres, the reader is referred to <a href="#add">RD 2</a> and <a href="#opman">RD 3</a>.
+The overall plan for implementation is provided in <a href="#implplan">RD 1</a>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<a href="#implplan">RD 1</a> is slightly outdated as of 2023.
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect2">
 <h3 id="applicable-documents"><a class="anchor" href="#applicable-documents"></a>1.4. Applicable documents</h3>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">RD 1</dt>
-<dd>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+<a id="implplan"></a>RD 1
+</td>
+<td class="hdlist2">
 <p><a href="http://www.wmo.int/pages/prog/www/OSY/Meetings/GCW_AM1/GCW_IP_v1.5(1Nov2015).docx">Global Cryosphere Watch (GCW) Implementation Plan, Version 1.5</a></p>
-</dd>
-<dt class="hdlist1"><a id="anchor-5"></a>RD 2</dt>
-<dd>
-<p>GCW Portal Operational Manual, Version 0.2.1 (To be
-published)</p>
-</dd>
-<dt class="hdlist1">RD 3</dt>
-<dd>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<a id="add"></a>RD 2
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/GlobalCryosphereWatch/ADD">GCW Data Portal - Architecture Overview</a>, pointing at the most recent version</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<a id="opman"></a>RD 3
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/GlobalCryosphereWatch/OM">GCW Portal Operational Manual</a>, pointing at the most recent version</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<a id="gcwwebsite"></a>RD 4
+</td>
+<td class="hdlist2">
 <p><a href="http://globalcryospherewatch.org/" class="bare">http://globalcryospherewatch.org/</a></p>
-</dd>
-<dt class="hdlist1"><a id="anchor-7"></a>RD 4</dt>
-<dd>
-<p><a href="http://www.wmo.int/pages/prog/www/WIS/">WMO Information
-System</a></p>
-</dd>
-<dt class="hdlist1">RD 5</dt>
-<dd>
-<p><a id="anchor-8"></a><a href="http://www.wmo.int/pages/prog/www/WIS/metadata_en.html">WMO
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<a id="wis"></a>RD 5
+</td>
+<td class="hdlist2">
+<p><a href="http://www.wmo.int/pages/prog/www/WIS/">WMO Information System</a></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<a id="gts"></a>RD 6
+</td>
+<td class="hdlist2">
+<p><a href="https://public.wmo.int/en/programmes/global-telecommunication-system">WMO GTS</a></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<a id="wigos"></a>RD 7
+</td>
+<td class="hdlist2">
+<p><a href="https://community.wmo.int/en/activity-areas/WIGOS" class="bare">https://community.wmo.int/en/activity-areas/WIGOS</a></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<a id="wmcp"></a>RD 8
+</td>
+<td class="hdlist2">
+<p><a href="http://www.wmo.int/pages/prog/www/WIS/metadata_en.html">WMO
 Core Profile of the ISO 19115</a></p>
-</dd>
-<dt class="hdlist1">RD 6</dt>
-<dd>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<a id="wmds"></a>RD 9
+</td>
+<td class="hdlist2">
 <p><a id="anchor-9"></a><a href="https://www.wmo.int/pages/prog/www/wigos/index_en.html">WIGOS</a>,
 including the metadata standard</p>
-</dd>
-<dt class="hdlist1">RD 7</dt>
-<dd>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<a id="oaipmh"></a>RD 10
+</td>
+<td class="hdlist2">
 <p><a href="http://www.openarchives.org/OAI/openarchivesprotocol.html">The Open
 Archives Initiative Protocol for Metadata Harvesting, Version 2</a></p>
-</dd>
-<dt class="hdlist1"><a id="anchor-10"></a>RD 8</dt>
-<dd>
-<p><a href="https://www.openarchives.org/pmh/tools/tools.php">OAI-PMH
-tools</a></p>
-</dd>
-<dt class="hdlist1"><a id="anchor-11"></a>RD 9</dt>
-<dd>
-<p><a href="http://www.opengeospatial.org/standards/cat">OGC CSW
-specification</a></p>
-</dd>
-<dt class="hdlist1"><a id="anchor-12"></a>RD 10</dt>
-<dd>
-<p><a href="http://gcmd.gsfc.nasa.gov/add/difguide/index.html">GCMD
-DIF Writers Guide</a></p>
-</dd>
-<dt class="hdlist1"><a id="anchor-13"></a>RD 11</dt>
-<dd>
-<p><a href="http://gcmd.nasa.gov/learn/keyword_list.html">GCMD
-Science Keywords</a></p>
-</dd>
-<dt class="hdlist1"><a id="anchor-14"></a>RD 12</dt>
-<dd>
-<p><a href="http://cfconventions.org/standard-names.html">Climate
-and Forecast Standard Names</a></p>
-</dd>
-<dt class="hdlist1"><a id="anchor-15"></a>RD 13</dt>
-<dd>
-<p><a href="http://wis.wmo.int/2013/metadata/version_1-3-0/WMO_Core_Metadata_Profile_v1.3_Part_2.pdf">WMO
-Code Lists</a></p>
-</dd>
-<dt class="hdlist1"><a id="anchor-16"></a>RD 14</dt>
-<dd>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<a id="oaipmhtools"></a>RD 11
+</td>
+<td class="hdlist2">
+<p><a href="https://www.openarchives.org/pmh/tools/tools.php">OAI-PMH tools</a></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<a id="ogccsw"></a>RD 12
+</td>
+<td class="hdlist2">
+<p><a href="http://www.opengeospatial.org/standards/cat">OGC CSW specification</a></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<a id="gcmddif"></a>RD 13
+</td>
+<td class="hdlist2">
+<p><a href="http://gcmd.gsfc.nasa.gov/add/difguide/index.html">GCMD DIF Writers Guide</a></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<a id="gcmdkeywords"></a>RD 14
+</td>
+<td class="hdlist2">
+<p><a href="http://gcmd.nasa.gov/learn/keyword_list.html">GCMD Science Keywords</a></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<a id="cfstdnames"></a>RD 15
+</td>
+<td class="hdlist2">
+<p><a href="http://cfconventions.org/standard-names.html">Climate and Forecast Standard Names</a></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<a id="netcdf"></a>RD 16
+</td>
+<td class="hdlist2">
 <p><a href="http://www.unidata.ucar.edu/software/netcdf/">NetCDF</a></p>
-</dd>
-<dt class="hdlist1"><a id="anchor-17"></a>RD 15</dt>
-<dd>
-<p><a href="http://cfconventions.org/">Climate and Forecast
-Conventions</a></p>
-</dd>
-<dt class="hdlist1"><a id="anchor-18"></a>RD 16</dt>
-<dd>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<a id="cf"></a>RD 17
+</td>
+<td class="hdlist2">
+<p><a href="http://cfconventions.org/">Climate and Forecast Conventions</a></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<a id="opendap"></a>RD 18
+</td>
+<td class="hdlist2">
 <p><a href="http://opendap.org/">OPeNDAP</a></p>
-</dd>
-<dt class="hdlist1"><a id="anchor-19"></a>RD17</dt>
-<dd>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<a id="cdm"></a>RD19
+</td>
+<td class="hdlist2">
 <p><a href="http://www.unidata.ucar.edu/software/thredds/current/netcdf-java/CDM/">UNIDATA&#8217;s
 Common Data Model</a></p>
-</dd>
-<dt class="hdlist1"><a id="anchor-20"></a>RD 18</dt>
-<dd>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<a id="acdd"></a>RD 20
+</td>
+<td class="hdlist2">
 <p><a href="http://wiki.esipfed.org/index.php/Attribute_Convention_for_Data_Discovery_1-3">Attribute Convention for Dataset Discovery</a></p>
-</dd>
-</dl>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -758,67 +846,30 @@ Common Data Model</a></p>
 <div class="sect2">
 <h3 id="background-1"><a class="anchor" href="#background-1"></a>2.1. Background</h3>
 <div class="paragraph">
-<p>The <a href="https://gcw.met.no">GCW Data Portal</a>, or catalogue, is dedicated to
-data management and to providing specific information on datasets . The
-data management component is an enabling service in the sense that it
-identifies relevant datasets and their locations and provides an interface
-that can be used in the evaluation of GCW data and products. The portal
-will support simple visualization (generation of maps or diagrams like
-time series) and transformations such as reformatting and re-projection of
-data, <em>if the data are served through the appropriate interfaces and
-forms</em>.</p>
+<p>The <a href="https://gcw.met.no">GCW Data Portal</a>, or catalogue, is dedicated to data management and to providing specific information on datasets.
+The architecture of the GCW Data Portal is outlined in <a href="#add">RD 2</a>.
+The data management component is an enabling service in the sense that it identifies relevant datasets and their locations and provides an interface that can be used in the evaluation of GCW data and products.
+The portal will support simple visualization (generation of maps or diagrams like time series) and transformations such as reformatting and re-projection of data, <em>if the data are served through the appropriate interfaces and forms</em>.</p>
 </div>
 <div class="paragraph">
-<p>GCW data management shall integrate datasets and provides access to data
-and information on past, present, and future cryospheric conditions. To
-achieve these results, the data portal must be attached to real-time and
-near-real-time data management systems and to data archives. While
-interfacing with existing data management systems, GCW respects
-partnership and ownership. GCW itself will rely on distributed data
-management technologies and partners (e.g. CryoNet stations) to
-establish the GCW catalogue. This process will create a unified
-interface to datasets in an otherwise fragmented terrain. No information
-on data (discovery metadata) will be kept in the GCW catalogue without
-an agreement with the data producer/data owner.</p>
+<p>GCW data management shall integrate datasets and provides access to data and information on past, present, and future cryospheric conditions.
+To achieve these results, the data portal must be attached to real-time and near-real-time data management systems and to data archives.
+While interfacing with existing data management systems, GCW respects partnership and ownership.
+GCW itself will rely on distributed data management technologies and partners (e.g. CryoNet stations) to establish the GCW catalogue.
+This process will create a unified interface to datasets in an otherwise fragmented terrain.
+No information on data (discovery metadata) will be kept in the GCW catalogue without an agreement with the data producer/data owner.</p>
 </div>
-<div class="paragraph">
-<p><em>GCW data management follows a metadata driven approach in which
-datasets are described through discovery metadata exchanged between
-contributing data centers and the GCW catalogue.</em></p>
-</div>
-<div class="paragraph">
-<p>In the GCW context, at least two types of metadata are relevant (see
-<a href="#the-concept-of-metadata">Section 2.2</a> for more information on metadata). One is
-“discovery” or index metadata identifying general characteristics of a
-dataset, including what was measured where and when, potential
-restrictions on data use, data custodians, and the available interfaces
-to the actual dataset. This is the type of metadata that will be
-exchanged within GCW. Another type, “use” metadata, is required when a
-user has accessed a dataset and begins to use it. Such metadata
-typically include a specification of variables, units used, how missing
-values are encoded, and other details on the contents of the dataset.
-The third type of metadata is interpretation or context metadata for
-observational data (e.g., data quality, instrumentation used, processing
-performed, and environmental conditions), which allow data to be
-interpreted in context. The ingested discovery metadata will be
-harvested from project specific, national, and international catalogues.
-Some examples are given in <a href="#data-centres">Figure1</a>. In addition to harvesting existing
-catalogues, the data management part of the GCW portal will facilitate
-forms for submission of metadata on datasets not handled by existing
-catalogues. Successful exchange of metadata will involve some degree of
-adaptation of systems on either side. However, in order to establish a
-sustainable system, the number of standards the GCW portal has to
-support cannot be too many. Furthermore, the actual data also has to be
-standardised to support integration of data among data providers.
-Concerning the search model used for the GCW portal, search for
-scientific parameters is currently based on the GCMD Science Keywords.
-<em>All datasets must be documented in the English language.</em></p>
-</div>
-<div id="data-centres" class="imageblock">
-<div class="content">
-<img src="illustrations/gcw-flow-20200211.png" alt="gcw flow 20200211">
-</div>
-<div class="title">Figure 1. Data centres which the GCW Portal have discussions with.</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Important</div>
+</td>
+<td class="content">
+The compliance of CryoNet stations in particular to the interoperability guidelines is essential to the success of the data portal.
+</td>
+</tr>
+</table>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -827,10 +878,42 @@ scientific parameters is currently based on the GCMD Science Keywords.
 <div class="title">Note</div>
 </td>
 <td class="content">
-Update illustration, it is outdated.
+GCW data management follows a metadata driven approach in which datasets are described through discovery metadata exchanged between contributing data centers and the GCW catalogue.
 </td>
 </tr>
 </table>
+</div>
+<div class="paragraph">
+<p>In the GCW context, at least two types of metadata are relevant (see <a href="#the-concept-of-metadata">Section 2.2</a> for more information on metadata).
+One is “discovery” or index metadata identifying general characteristics of a dataset, including what was measured where and when, potential restrictions on data use, data custodians, and the available interfaces to the actual dataset.
+This is the type of metadata that will be exchanged within GCW. Another type, “use” metadata, is required when a user has accessed a dataset and begins to use it.
+Such metadata typically include a specification of variables, units used, how missing values are encoded, and other details on the contents of the dataset.
+The third type of metadata is interpretation or context metadata for observational data (e.g., data quality, instrumentation used, processing performed, and environmental conditions), which allow data to be interpreted in context.
+The ingested discovery metadata will be harvested from project specific, national, and international catalogues.
+Some examples are given in <a href="#data-centres">Figure1</a>.
+In addition to harvesting existing catalogues, the data management part of the GCW portal will facilitate forms for submission of metadata on datasets not handled by existing catalogues.
+Successful exchange of metadata will involve some degree of adaptation of systems on either side.
+However, in order to establish a sustainable system, the number of standards the GCW portal has to support cannot be too many.
+Furthermore, the actual data also has to be standardised to support integration of data among data providers.
+Concerning the search model used for the GCW portal, search for scientific parameters is currently based on the GCMD Science Keywords.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Important</div>
+</td>
+<td class="content">
+All datasets must be documented in the English language.
+</td>
+</tr>
+</table>
+</div>
+<div id="data-centres" class="imageblock">
+<div class="content">
+<img src="diagrams/gcw-datacentres.png" alt="gcw datacentres">
+</div>
+<div class="title">Figure 1. Data centres which the GCW Portal is harvesting or have discussions with.</div>
 </div>
 </div>
 <div class="sect2">
@@ -1855,7 +1938,7 @@ format.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-01-21 15:30:13 UTC
+Last updated 2023-03-02 21:56:01 UTC
 </div>
 </div>
 </body>
