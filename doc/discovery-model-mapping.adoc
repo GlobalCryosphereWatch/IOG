@@ -1,0 +1,108 @@
+////
+GCMD Data_Set_Citation is missing, need to add.
+////
+[.landscape]
+<<<
+[[discovery-model-elements]]
+[cols="15,~,~,~",title="Discovery model elements and mappings against exchange standards."]
+|=======================================================================
+|Element |Description |ISO19115 |GCMD DIF 
+
+>|metadata_identifier 
+| A unique identifier (A UUID with namespace is recommended) for the dataset. 
+|gmd:fileIdentifier/gco:CharacterString  
+|Entry_ID 
+
+|last_metadata_update 
+| Last date of updated metadata using the form YYYY-MM-DDTHH:MM:SSZ 
+|gmd:dateStamp 
+|FIXME
+
+>|title 
+|A short title for the dataset. 
+|gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:title/gco:CharacterString 
+|Entry_Title
+
+>|abstract 
+|Short summary describing the dataset embedded in gco:CharacterString.  
+|gmd:identificationInfo/gmd:MD_DataIdentification/gmd:abstract 
+|Summary
+
+>|temporal_extent 
+|Temporal extent of the dataset. Currently gaps are not handled.  
+|gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:temporalElement/gmd:EX_TemporalExtent/gmd:extent/gml:TimePeriod +
+Relies on gml:beginPosition always to be present, if gml:endPosition is missing it is considered an ongoing observational effort.
+|Temporal_Coverage
+
+>|geographic_extent 
+|Spatial extent of the dataset.  Requires all 4 corners (gmd:northBoundLatitude/gco:Decimal etc) of the BoundingBox to be set, also for point measurements. Points are interpreted if values are identical. 
+|gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:geographicElement/gmd:EX_GeographicBoundingBox 
+|Spatial_Coverage
+
+>|iso_topic_category
+|ISO Topic Category, using a controlled vocabulary. 
+|gmd:identificationInfo/gmd:MD_DataIdentification/gmd:topicCategory/gmd:MD_TopicCategoryCode 
+|ISO_Topic_Category
+
+>|keywords
+|A word or phrase that describes some aspect of a resource. Can be one of several types. It is used to describe the parameters in a dataset, the project affiliation etc. Proper identification of the purpose of the keywords and the vocabularies used is required. Project names are used to tag datasets in the SDMS system, e.g. as SIOS Core Data, SESS 2020 etc. If the keyword starts with 'EARTH SCIENCE &gt;' keywords are extracted and put in a separate list for GCMD keywords and used in the search interface. The full path of GCMD science keywords including '&gt;' is required. 
+|gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords/gmd:MD_Keywords/gmd:keyword/gco:CharacterString  +
+The scope for keywords has to be identified by identification of the purpose (parameter/variable definitions, projects etc) of keywords in ISO records.
+Details on how this is done is provided below.
+|Parameters +
+Earth Science keywords.
+
+>|personnel 
+|This field is used to identify personnel with various roles in relation to the dataset. It should also include contact information, at least email address and name of the affiliated institution, role (see below) and name. 
+a|* gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty
+* gmd:contact/gmd:CI_ResponsibleParty
+* Extraction and crediting people involved relies on gmd:role/gmd:CI_RoleCode to have attribute codeListValue set according to a predefined set of values. ISO codes principalInvestigator, pointOfContact, and author are translated into roles of Principal Investigator, Technical Contact, Metadata Author respectively. Roles not listed above are translated into Technical Contact. 
+|Personnel +
+Extracts information from Originating_Center as well
+
+>|data_access
+|URL to the actual dataset accompanied with identification of the protocol supported.  
+|gmd:distributionInfo/gmd:MD_Distribution/gmd:transferOptions/gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource +
+This implies that elements gmd:protocol/gco:CharacterString and gmd:linkage/gmd:URL must be set and the gmd:protocol contains a predefined keywordfootnote:[OSGEO or GCMD keywords are required for proper interpretation. More details to be added for this. These keywords are translated in the harvesting routine.]. This is used both to identify direct download of datasets (i.e. HTTP or FTP) as well as services on top of dataset (e.g. OPeNDAP, OGC WMS). It is important to note that direct download should not refer to a website requiring manual intervention. Direct download will be handled by the basket in the data portal and enables bundling of data for download etc.
+|Related_URL +
+The purpose of the URL has to be properly identified using the relevant fields and vocabularies. Details are provided below.
+
+>|use_constraint 
+|License for the metadata using https://spdx.org/licenses/[SPDX License List]. The identifier (adhering to the SPDX formatting) goes into gmx:Anchor and the link to the text into  the attribute of this xlink:href. This is currently a recommended field, but it is strongly recommended and suggested to become mandatory in the future. 
+|gmd:identificationInfo/gmd:MD_DataIdentification/gmd:resourceConstraints/gmd:MD_LegalConstraints/gmd:useLimitation 
+|Use_Constraint
+
+>|data_center 
+|The host data center of the dataset. This should have both a long and short name, but only specification for the long name is currently identified. 
+|gmd:distributionInfo/gmd:MD_Distribution/gmd:distributor/gmd:MD_Distributor +
+The long name goes into gmd:distributorContact/gmd:CI_ResponsibleParty/gmd:organisationName/gco:CharacterString and the URL for the data center into gmd:distributorContact/gmd:CI_ResponsibleParty/gmd:contactInfo/gmd:CI_Contact/gmd:onlineResource/gmd:CI_OnlineResource/gmd:linkage/gmd:URL. More information to be added. 
+|Data_Center
+
+>|project 
+|Project where the dataset was generated or collected. Preferably both short and long names should be provided.
+|FIXME +
+Project information is conveyed through keywords in ISO19115 profiles.
+The scope for keywords has to be identified by identification of the purpose (parameter/variable definitions, projects etc) of keywords in ISO records.
+Details on how this is done is provided below.
+|Project
+
+>|dataset_language 
+|Should be English. 
+|gmd:identificationInfo/gmd:MD_DataIdentification/gmd:language 
+|Data_Set_Language
+
+>|storage_information 
+|Should be NetCDF/CF or Darwin Core Archive in SDMS. Other standardised formats may be supported later. Non standard formats should have a detailed product manual. 
+|FIXME 
+|Distribution +
+Extracts information from the Distribution element FIXME
+
+>|platform
+|FIXME
+|FIXME
+|FIXME
+
+|=======================================================================
+
+[.portrait]
+<<<
