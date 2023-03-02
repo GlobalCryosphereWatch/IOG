@@ -21,7 +21,7 @@ Date: {docdate}
 |=======================================================================
 |Version |Date |Comment |Responsible
 
-|0.x |202?-??-??|Many updates... a| Øystein Godøy
+|1.0 |2023-02-28|Restructured. a| Øystein Godøy
 
 |0.5 |2017-12-31 |A major rewrite with restructuring of the content,
 rephrasing requirements and addition of information on both the GCW
@@ -52,98 +52,81 @@ toc::[]
 [[background]]
 === Background
 
-The intention of the GCW Portal is to be the entry point to datasets
-describing the cryosphere and form the information basis for the
-assessment activities of the Global Cryosphere Watch. It offers a web
-interface that contains information about datasets through discovery
-metadata provided by the data providers (or host data centre). These
-discovery metadata are harvested on a regular basis from data centres
-actually managing the data on behalf of the owners/providers of the
-data.
+The intention of the GCW Portal is to be the entry point to datasets describing the cryosphere and form the information basis for the assessment activities of the Global Cryosphere Watch <<gcwwebsite>>. 
+It offers a web interface that contains information about datasets through discovery metadata provided by the data providers (or host data centre). 
+These discovery metadata are harvested on a regular basis from data centres actually managing the data on behalf of the owners/providers of the data.
 
-The GCW Portal utilises interoperability interfaces to metadata and data
-in order to provide a unified view on the datasets that are relevant for
-GCW activities. The GCW Portal is also the interface for GCW metadata to
-WMO Information System (WIS) and WMO Integrated Global Observing System
-(WIGOS)footnote:[Details on how to avoid duplicate information in WIS
-and WIGOS needs to be defined. ]. The GCW Portal will also facilitate
-real time access to data through Internet and WMO GTSfootnote:[For
-datasets not routed through GTS by other agencies.] as requested by the
-user community. This require a certain level of interoperability at the
-data level in addition to at the metadata level. On GTS, WMO formats
-(BUFR and GRIB) are required and the GCW Portal can transform data into
-these formats in the dissemination process, provided contributing data
-centres are following the required standards for documentation and
-interfaces to data.
+The GCW Portal utilises interoperability interfaces to metadata and data in order to provide a unified view on the datasets that are relevant for GCW activities. 
+The GCW Portal is also the interface for GCW metadata to WMO Information System (WIS, <<wis>>) and WMO Integrated Global Observing System (WIGOS, <<wigos>>)footnote:[Details on how to avoid duplicate information in WIS and WIGOS needs to be defined. ]. 
+The GCW Portal will also facilitate real time access to data through Internet and WMO GTSfootnote:[For datasets not routed through GTS by other agencies.] as requested by the user community. 
+This require a certain level of interoperability at the data level in addition to at the metadata level. 
+On GTS <<gts>>, WMO formats (BUFR and GRIB) are required and the GCW Portal can transform data into these formats in the dissemination process, provided contributing data centres are following the required standards for documentation and interfaces to data.
+
+NOTE: WIS 2.0 is replacing WMO GTS with AMQP/MQTT, how GCW will interact with this is under development.
 
 [[scope]]
 === Scope
 
-This document provides an overview of the GCW Portal system and
-identifies interoperability tools that simplifies integration of data
-from a number of sources to a unified virtual data management system.
+This document provides an overview of the GCW Portal system and identifies interoperability tools that simplifies integration of data from a number of sources to a unified virtual data management system.
+Details of the GCW Data Portal architecture is indicated in <<add>>.
 
 [[intended-audience]]
 === Intended audience
 
-System managers at the data centres contributing to the GCW Portal
-system are the intended audience of this manual. This includes data
-centres managing CryoNet data as well as other data centres managing
-cryospheric data. Requirements are stricter for data centres managing
-CryoNet stations data than for other contributing data centres.
-Concerning the roles that should be defined at contributing data
-centres, the reader is referred to <<#anchor-5,[2]>>.
+System managers at the data centres contributing to the GCW Portal system are the intended audience of this manual. 
+This includes data centres managing CryoNet data as well as other data centres managing cryospheric data. 
+Requirements are stricter for data centres managing CryoNet stations data than for other contributing data centres.  
+Concerning the roles that should be defined at contributing data centres, the reader is referred to <<add>> and <<opman>>.
+The overall plan for implementation is provided in <<implplan>>.
+
+NOTE: <<implplan>> is slightly outdated as of 2023.
 
 [[applicable-documents]]
 === Applicable documents
-RD 1::
+[horizontal]
+[[implplan]]RD 1::
 http://www.wmo.int/pages/prog/www/OSY/Meetings/GCW_AM1/GCW_IP_v1.5(1Nov2015).docx[Global Cryosphere Watch (GCW) Implementation Plan, Version 1.5]
-[[anchor-5]]RD 2::
-GCW Portal Operational Manual, Version 0.2.1 (To be
-published)
-RD 3::
+[[add]]RD 2::
+https://github.com/GlobalCryosphereWatch/ADD[GCW Data Portal - Architecture Overview], pointing at the most recent version
+[[opman]]RD 3::
+https://github.com/GlobalCryosphereWatch/OM[GCW Portal Operational Manual], pointing at the most recent version
+[[gcwwebsite]]RD 4::
 http://globalcryospherewatch.org/
-[[anchor-7]]RD 4::
-http://www.wmo.int/pages/prog/www/WIS/[WMO Information
-System]
-RD 5::
-[[anchor-8]]http://www.wmo.int/pages/prog/www/WIS/metadata_en.html[WMO
+[[wis]]RD 5::
+http://www.wmo.int/pages/prog/www/WIS/[WMO Information System]
+[[gts]]RD 6::
+https://public.wmo.int/en/programmes/global-telecommunication-system[WMO GTS]
+[[wigos]]RD 7::
+https://community.wmo.int/en/activity-areas/WIGOS
+[[wmcp]]RD 8::
+http://www.wmo.int/pages/prog/www/WIS/metadata_en.html[WMO
 Core Profile of the ISO 19115]
-RD 6::
+[[wmds]]RD 9::
 [[anchor-9]]https://www.wmo.int/pages/prog/www/wigos/index_en.html[WIGOS],
 including the metadata standard
-RD 7::
+[[oaipmh]]RD 10::
 http://www.openarchives.org/OAI/openarchivesprotocol.html[The Open
 Archives Initiative Protocol for Metadata Harvesting, Version 2]
-[[anchor-10]]RD 8::
-https://www.openarchives.org/pmh/tools/tools.php[OAI-PMH
-tools]
-[[anchor-11]]RD 9::
-http://www.opengeospatial.org/standards/cat[OGC CSW
-specification]
-[[anchor-12]]RD 10::
-http://gcmd.gsfc.nasa.gov/add/difguide/index.html[GCMD
-DIF Writers Guide]
-[[anchor-13]]RD 11::
-http://gcmd.nasa.gov/learn/keyword_list.html[GCMD
-Science Keywords]
-[[anchor-14]]RD 12::
-http://cfconventions.org/standard-names.html[Climate
-and Forecast Standard Names]
-[[anchor-15]]RD 13::
-http://wis.wmo.int/2013/metadata/version_1-3-0/WMO_Core_Metadata_Profile_v1.3_Part_2.pdf[WMO
-Code Lists]
-[[anchor-16]]RD 14::
+[[oaipmhtools]]RD 11::
+https://www.openarchives.org/pmh/tools/tools.php[OAI-PMH tools] 
+[[ogccsw]]RD 12::
+http://www.opengeospatial.org/standards/cat[OGC CSW specification]
+[[gcmddif]]RD 13::
+http://gcmd.gsfc.nasa.gov/add/difguide/index.html[GCMD DIF Writers Guide]
+[[gcmdkeywords]]RD 14::
+http://gcmd.nasa.gov/learn/keyword_list.html[GCMD Science Keywords]
+[[cfstdnames]]RD 15::
+http://cfconventions.org/standard-names.html[Climate and Forecast Standard Names]
+[[netcdf]]RD 16::
 http://www.unidata.ucar.edu/software/netcdf/[NetCDF]
-[[anchor-17]]RD 15::
-http://cfconventions.org/[Climate and Forecast
-Conventions]
-[[anchor-18]]RD 16::
+[[cf]]RD 17::
+http://cfconventions.org/[Climate and Forecast Conventions]
+[[opendap]]RD 18::
 http://opendap.org/[OPeNDAP]
-[[anchor-19]]RD17::
+[[cdm]]RD19::
 http://www.unidata.ucar.edu/software/thredds/current/netcdf-java/CDM/[UNIDATA's
 Common Data Model]
-[[anchor-20]]RD 18::
+[[acdd]]RD 20::
 http://wiki.esipfed.org/index.php/Attribute_Convention_for_Data_Discovery_1-3[Attribute Convention for Dataset Discovery]
 
 [[an-outline-of-the-gcw-portal]]
@@ -152,64 +135,40 @@ http://wiki.esipfed.org/index.php/Attribute_Convention_for_Data_Discovery_1-3[At
 [[background-1]]
 === Background
 
-The https://gcw.met.no[GCW Data Portal], or catalogue, is dedicated to
-data management and to providing specific information on datasets . The
-data management component is an enabling service in the sense that it
-identifies relevant datasets and their locations and provides an interface
-that can be used in the evaluation of GCW data and products. The portal
-will support simple visualization (generation of maps or diagrams like
-time series) and transformations such as reformatting and re-projection of
-data, _if the data are served through the appropriate interfaces and
-forms_.
+The https://gcw.met.no[GCW Data Portal], or catalogue, is dedicated to data management and to providing specific information on datasets. 
+The architecture of the GCW Data Portal is outlined in <<add>>.
+The data management component is an enabling service in the sense that it identifies relevant datasets and their locations and provides an interface that can be used in the evaluation of GCW data and products. 
+The portal will support simple visualization (generation of maps or diagrams like time series) and transformations such as reformatting and re-projection of data, _if the data are served through the appropriate interfaces and forms_.
 
-GCW data management shall integrate datasets and provides access to data
-and information on past, present, and future cryospheric conditions. To
-achieve these results, the data portal must be attached to real-time and
-near-real-time data management systems and to data archives. While
-interfacing with existing data management systems, GCW respects
-partnership and ownership. GCW itself will rely on distributed data
-management technologies and partners (e.g. CryoNet stations) to
-establish the GCW catalogue. This process will create a unified
-interface to datasets in an otherwise fragmented terrain. No information
-on data (discovery metadata) will be kept in the GCW catalogue without
-an agreement with the data producer/data owner.
+GCW data management shall integrate datasets and provides access to data and information on past, present, and future cryospheric conditions. 
+To achieve these results, the data portal must be attached to real-time and near-real-time data management systems and to data archives. 
+While interfacing with existing data management systems, GCW respects partnership and ownership. 
+GCW itself will rely on distributed data management technologies and partners (e.g. CryoNet stations) to establish the GCW catalogue. 
+This process will create a unified interface to datasets in an otherwise fragmented terrain. 
+No information on data (discovery metadata) will be kept in the GCW catalogue without an agreement with the data producer/data owner.
 
-_GCW data management follows a metadata driven approach in which
-datasets are described through discovery metadata exchanged between
-contributing data centers and the GCW catalogue._
+IMPORTANT: The compliance of CryoNet stations in particular to the interoperability guidelines is essential to the success of the data portal.
 
-In the GCW context, at least two types of metadata are relevant (see
-<<the-concept-of-metadata>> for more information on metadata). One is
-“discovery” or index metadata identifying general characteristics of a
-dataset, including what was measured where and when, potential
-restrictions on data use, data custodians, and the available interfaces
-to the actual dataset. This is the type of metadata that will be
-exchanged within GCW. Another type, “use” metadata, is required when a
-user has accessed a dataset and begins to use it. Such metadata
-typically include a specification of variables, units used, how missing
-values are encoded, and other details on the contents of the dataset.
-The third type of metadata is interpretation or context metadata for
-observational data (e.g., data quality, instrumentation used, processing
-performed, and environmental conditions), which allow data to be
-interpreted in context. The ingested discovery metadata will be
-harvested from project specific, national, and international catalogues.
-Some examples are given in <<data-centres>>. In addition to harvesting existing
-catalogues, the data management part of the GCW portal will facilitate
-forms for submission of metadata on datasets not handled by existing
-catalogues. Successful exchange of metadata will involve some degree of
-adaptation of systems on either side. However, in order to establish a
-sustainable system, the number of standards the GCW portal has to
-support cannot be too many. Furthermore, the actual data also has to be
-standardised to support integration of data among data providers.
-Concerning the search model used for the GCW portal, search for
-scientific parameters is currently based on the GCMD Science Keywords.
-_All datasets must be documented in the English language._
+NOTE: GCW data management follows a metadata driven approach in which datasets are described through discovery metadata exchanged between contributing data centers and the GCW catalogue.
+
+In the GCW context, at least two types of metadata are relevant (see <<the-concept-of-metadata>> for more information on metadata). 
+One is “discovery” or index metadata identifying general characteristics of a dataset, including what was measured where and when, potential restrictions on data use, data custodians, and the available interfaces to the actual dataset. 
+This is the type of metadata that will be exchanged within GCW. Another type, “use” metadata, is required when a user has accessed a dataset and begins to use it. 
+Such metadata typically include a specification of variables, units used, how missing values are encoded, and other details on the contents of the dataset.  
+The third type of metadata is interpretation or context metadata for observational data (e.g., data quality, instrumentation used, processing performed, and environmental conditions), which allow data to be interpreted in context. 
+The ingested discovery metadata will be harvested from project specific, national, and international catalogues. 
+Some examples are given in <<data-centres>>. 
+In addition to harvesting existing catalogues, the data management part of the GCW portal will facilitate forms for submission of metadata on datasets not handled by existing catalogues.
+Successful exchange of metadata will involve some degree of adaptation of systems on either side. 
+However, in order to establish a sustainable system, the number of standards the GCW portal has to support cannot be too many. 
+Furthermore, the actual data also has to be standardised to support integration of data among data providers. 
+Concerning the search model used for the GCW portal, search for scientific parameters is currently based on the GCMD Science Keywords. 
+
+IMPORTANT: All datasets must be documented in the English language.
 
 [[data-centres, {figure-caption}{counter:refnum}]]
-.Data centres which the GCW Portal have discussions with.
-image::illustrations/gcw-flow-20200211.png[]
-
-NOTE: Update illustration, it is outdated.
+.Data centres which the GCW Portal is harvesting or have discussions with.
+image::diagrams/gcw-datacentres.png[]
 
 [[the-concept-of-metadata]]
 === The concept of metadata

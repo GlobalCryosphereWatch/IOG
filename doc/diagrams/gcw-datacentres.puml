@@ -1,0 +1,136 @@
+@startuml
+
+'skinparam monochrome true
+'left to right direction
+hide stereotype
+skinparam defaultTextAlign center
+
+skinparam roundCorner 15
+
+frame "Frameworks" {
+    cloud WIGOS
+    cloud WIS
+    cloud GEOSS
+}
+
+skinparam rectangle {
+    borderStyle<<inprog>> dashed
+}
+skinparam Cloud {
+    BackgroundColor DarkBlue
+    FontColor White
+}
+
+skinparam Database {
+    BackgroundColor<<GCW>> darkorange
+    FontSize<<GCW>> 20
+    FontStyle bold
+    BackgroundColor<<DataCentre>> PaleGreen
+    BackgroundColor<<CryoNet>> salmon
+    FontSize<<CryoNet>> 12
+    StereotypeFontSize<<CryoNet>> 12
+    FontSize<<DataCentre>> 12
+    StereotypeFontSize<<DataCentre>> 12
+}
+
+skinparam Frame {
+    BackgroundColor White
+}
+
+database "GCW\nData Portal" <<GCW>> as GCW
+
+frame "Generic Data Repositories/Aggregators" as DC {
+    rectangle "  "<<inprog>> {
+        database "CCIN\n(CA)" as CCIN <<DataCentre>>
+        database "CCADI\n(CA)" as CCADI <<DataCentre>>
+        database "INTERACT" as interact <<DataCentre>>
+    }
+    database "WGMS\n(CH)" <<DataCentre>> as WGMS
+    database "PANGAEA\n(DE)" as PANGAEA <<DataCentre>>
+    rectangle "   "<<inprog>> {
+        database "IPA/GTN-P" as IPA <<DataCentre>>
+    }
+    database "NSIDC\n(US)" as NSIDC <<DataCentre>>
+    rectangle "    "<<inprog>> {
+        database "NSF/ADC\n(US)" as ADC <<DataCentre>>
+        database "GEM\n(DK)" as gem <<DataCentre>>
+        database "ECCC\n(CA)" as ECCC <<DataCentre>>
+    }
+    database "NPI\n(NO)" as NPI <<DataCentre>>
+    database "PRIC\n(CN)" as PRIC <<DataCentre>>
+    database "NIPR/ADS\n(JP)" as NIPR <<DataCentre>>
+    database "BAS\n(UK)" as BAS <<DataCentre>>
+    database "MET\n(NO)" as MET <<DataCentre>>
+    database "PPD\n(PL)" as PPD <<DataCentre>>
+    database "CNR\n(IT)" as cnr <<DataCentre>>
+} 
+
+frame CryoNet {
+    rectangle "     "<<inprog>> {
+        database "Sonnblick\n(ZAMG)" as ZAMG <<CryoNet>>
+    }
+    rectangle "           "<<inprog>> {
+        database "Sodankylä\n(FMI)" as FMI <<CryoNet>>
+    }
+    database "Weissflujoch\n(SLF)" as SLF <<CryoNet>>
+    rectangle "          "<<inprog>> {
+        database "Kluane Lake\n(UM)" as Kluane <<CryoNet>>
+    }
+    rectangle "       "<<inprog>> {
+        database "GEUS\n(DK)" as Geus <<CryoNet>>
+    }
+    rectangle "        "<<inprog>> {
+        database "TPE\n(CN)" as TPE <<CryoNet>>
+    }
+    /'
+    database "??? (AR)" <<DataCentre>>
+    '/
+}
+
+GEOSS -- WIS
+WIS .. GCW
+WIGOS .. GCW
+
+NSIDC -[hidden]- ADC
+NSIDC -[hidden]- PANGAEA
+NPI -[hidden]- BAS
+BAS -[hidden]- PRIC
+PRIC -[hidden]- NIPR
+WGMS -[hidden]- IPA
+IPA -[hidden]- ECCC
+ECCC -[hidden]- MET
+PANGAEA -[hidden]- ADC
+ADC -[hidden]- CCIN
+
+/'
+GCW .. ECCC
+GCW -- CCIN
+GCW -- PANGAEA
+GCW .. IPA
+GCW -- NSIDC
+GCW .. ADC
+GCW -- NPI
+GCW -- NIPR
+GCW -- PRIC
+GCW -- BAS
+GCW -- WGMS
+GCW .. PPC
+GCW -- MET
+'/
+
+SLF -[hidden]- Kluane
+Kluane -[hidden]- ZAMG
+ZAMG -[hidden]- FMI
+Geus -[hidden]- TPE
+
+/'
+GCW -- SLF
+GCW .. FMI
+GCW .. ZAMG
+GCW .. Kluane
+'/
+
+GCW -- CryoNet
+GCW -- DC
+
+@enduml
