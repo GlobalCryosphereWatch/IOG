@@ -7,7 +7,7 @@ The purpose of the GCW Interoperability Guidelines (IOG) is to provide an overvi
 Automatic processing from the srouce documents in ASCIIDOC to PDF and HTML is set up when changes to the documents are submitted. The most recent versions of the documentation is available below:
 
 - [PDF](https://github.com/GlobalCryosphereWatch/IOG/blob/master/doc/gcw-dm-guidelines.pdf)
-- [HTML](https://htmlpreview.github.io/?https://raw.githubusercontent.com/GlobalCryosphereWatch/IOG/master/doc/gcw-dm-guidelines.html?token=GHSAT0AAAAAABZBYS7CEUWM25K6NDJUDZVYY2NQQBQ)
+- [HTML](https://raw.githubusercontent.com/GlobalCryosphereWatch/IOG/main/doc/gcw-dm-guidelines.html?token=GHSAT0AAAAAABZBYS7DCGXPP73BG7CHUFKOZAFV7EQ)
 
 ## License
 This information is licensed under the terms of the [Creative Commons Attribution 4.0 International License][cc-by].
