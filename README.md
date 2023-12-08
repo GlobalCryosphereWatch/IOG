@@ -3,8 +3,9 @@
 
 ## Introduction
 The purpose of the GCW Interoperability Guidelines (IOG) is to provide an overview of the GCW Data Portal and identify interoperability approaches that simplifies integration of data from a number of sources to a unified virtual data management system. 
+The target audiences are data providers (encoding of data) and data managers/data centers (data documentation standards and interfaces to discovery metadata and data).
 
-Automatic processing from the srouce documents in ASCIIDOC to PDF and HTML is set up when changes to the documents are submitted. The most recent versions of the documentation is available below:
+Automatic processing from the source documents in ASCIIDOC to PDF and HTML is set up when changes to the documents are submitted. The most recent versions of the documentation is available below:
 
 - [PDF](https://github.com/GlobalCryosphereWatch/IOG/blob/master/doc/gcw-dm-guidelines.pdf)
 - [HTML](https://htmlpreview.github.io/?https://raw.githubusercontent.com/GlobalCryosphereWatch/IOG/main/doc/gcw-dm-guidelines.html?token=GHSAT0AAAAAABZBYS7DCGXPP73BG7CHUFKOZAFV7EQ)
