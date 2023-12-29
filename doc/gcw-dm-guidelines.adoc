@@ -708,4 +708,161 @@ include::acdd.adoc[]
 
 === A weather station
 
+It is important to emphasise that the profiles provided here are to be considered minimum profiles.
+You are free to add more global attributes or variables in order to properløy describe your data.
+
+////
+TODO: Only placeholder, old data dump, need to update with the new...
+////
+----
+netcdf SN99710_2023-01-01_2023-01-31_time_resolution_PT1H {
+dimensions:
+        time_PT1H = 744 ;
+variables:
+        int time_PT1H(time_PT1H) ;
+                time_PT1H:standard_name = "time" ;
+                time_PT1H:long_name = "time with frequency of 1 hour" ;
+                time_PT1H:units = "seconds since 1970-01-01T00:00:00+0" ;
+        int relative_humidity(time_PT1H) ;
+                relative_humidity:_FillValue = -999 ;
+                relative_humidity:long_name = "relative humidity" ;
+                relative_humidity:standard_name = "relative_humidity" ;
+                relative_humidity:units = "percent" ;
+                relative_humidity:performance_category = "C - The sensor type is assumed to fulfill the WMO/CIMO requirements. Missing measurement for control, rutines for calibration, or maintanence." ;
+        float surface_temperature(time_PT1H) ;
+                surface_temperature:_FillValue = -999.f ;
+                surface_temperature:long_name = "surface temperature" ;
+                surface_temperature:standard_name = "surface_temperature" ;
+                surface_temperature:units = "degC" ;
+                surface_temperature:performance_category = "C - The sensor type is assumed to fulfill the WMO/CIMO requirements. Missing measurement for control, rutines for calibration, or maintanence." ;
+        int tendency_of_surface_air_pressure_type(time_PT1H) ;
+                tendency_of_surface_air_pressure_type:_FillValue = -999 ;
+                tendency_of_surface_air_pressure_type:long_name = "tendency of surface air pressure type" ;
+                tendency_of_surface_air_pressure_type:standard_name = "tendency_of_surface_air_pressure_type" ;
+                tendency_of_surface_air_pressure_type:units = "code" ;
+                tendency_of_surface_air_pressure_type:performance_category = "A - The sensor type fulfills the requirements from WMO/CIMOs on measurement accuracy, calibration and maintenance." ;
+        float battery_voltage(time_PT1H) ;
+                battery_voltage:_FillValue = -999.f ;
+                battery_voltage:long_name = "battery voltage" ;
+                battery_voltage:standard_name = "battery_voltage" ;
+                battery_voltage:units = "volt" ;
+                battery_voltage:performance_category = "C - The sensor type is assumed to fulfill the WMO/CIMO requirements. Missing measurement for control, rutines for calibration, or maintanence." ;
+        float surface_air_pressure(time_PT1H) ;
+                surface_air_pressure:_FillValue = -999.f ;
+                surface_air_pressure:long_name = "surface air pressure" ;
+                surface_air_pressure:standard_name = "surface_air_pressure" ;
+                surface_air_pressure:units = "hPa" ;
+                surface_air_pressure:performance_category = "A - The sensor type fulfills the requirements from WMO/CIMOs on measurement accuracy, calibration and maintenance." ;
+        float air_pressure_at_sea_level(time_PT1H) ;
+                air_pressure_at_sea_level:_FillValue = -999.f ;
+                air_pressure_at_sea_level:long_name = "air pressure at sea level" ;
+                air_pressure_at_sea_level:standard_name = "air_pressure_at_sea_level" ;
+                air_pressure_at_sea_level:units = "hPa" ;
+                air_pressure_at_sea_level:performance_category = "A - The sensor type fulfills the requirements from WMO/CIMOs on measurement accuracy, calibration and maintenance." ;
+
+// global attributes:
+                :title = "Weather station BJØRNØYA (SN99710)" ;
+                :featureType = "timeSeries" ;
+                :summary = "Information from the station BJØRNØYA with MET station number SN99710.  Data are extracted from FROST, the API for the observation database of the Norwegian Meteorological Institute. Data are extracted and converted to CF-NetCDF. In this database, data are received in real time, and quality controlled." ;
+                :keywords = "GCMDSK:EARTH SCIENCE > ATMOSPHERE > ATMOSPHERIC WATER VAPOR > WATER VAPOR INDICATORS > HUMIDITY > RELATIVE HUMIDITY, GCMDSK:EARTH SCIENCE > ATMOSPHERE > ATMOSPHERIC TEMPERATURE > SURFACE AIR TEMPERATURE, GCMDSK:EARTH SCIENCE > ATMOSPHERE > ATMOSPHERIC PRESSURE > PRESSURE TENDENCY, GCMDSK:, GCMDSK:EARTH SCIENCE > ATMOSPHERE > ATMOSPHERIC PRESSURE > SURFACE PRESSURE, GCMDSK:EARTH SCIENCE > ATMOSPHERE > ATMOSPHERIC PRESSURE > SEA LEVEL PRESSURE" ;
+                :keywords_vocabulary = "GCMDSK:GCMD Science Keywords:https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/sciencekeywords" ;
+                :license = "https://creativecommons.org/licenses/by/3.0/no/" ;
+                :time_coverage_start = "2023-01-01T00:00:00Z" ;
+                :time_coverage_end = "2023-01-31T23:00:00Z" ;
+                :geospatial_lat_min = 74.5035 ;
+                :geospatial_lat_max = 74.5035 ;
+                :geospatial_lon_min = 18.998 ;
+                :geospatial_lon_max = 18.998 ;
+                :creator_name = "MET Arctic Data Center" ;
+                :creator_email = "adc-support@met.no" ;
+                :creator_url = "https://adc.met.no" ;
+                :creator_institution = "Norwegian Meteorological Institute (MET)" ;
+                :contributor = "Øystein Godøy" ;
+                :publisher_name = "Norwegian Meteorological Institute / Arctic Data Centre" ;
+                :publisher_email = "adc-support@met.no" ;
+                :publisher_url = "https://adc.met.no/" ;
+                :publisher_institution = "Norwegian Meteorological Institute" ;
+                :Conventions = "ACDD, CF-1.8" ;
+                :date_created = "2023-11-09T14:18:35Z" ;
+                :history = "2023-11-09T14:18:35Z: Data extracted from the MET Observation Database through Frost and stored as NetCDF-CF" ;
+                :source = "Norwegian Meteorological Institute archive of historical weather and climate data" ;
+                :wigosId = "0-20000-0-01028" ;
+                :MET_Identifier = "SN99710" ;
+                :project = "Arctic PASSION, APPLICATE, SIOS, YOPP" ;
+data:
+
+ time_PT1H = 1672531200, 1672534800, 1672538400, 1672542000, 1672545600, 
+
+...
+----
+
+The above also exemplifies utilisation of additonal global attributes, e.g. MET_Identifier which is an internal identifier in the MET observational data handling.
+
 === A permafrost station
+
+It is important to emphasise that the profiles provided here are to be considered minimum profiles.
+You are free to add more global attributes or variables in order to properløy describe your data.
+
+An example of a permafrost station is provided below.
+////
+TODO: Only placeholder, old data dump, need to update with the new...
+////
+----
+netcdf SN99927_2023-01-01_2023-01-31_time_resolution_PT1H {
+dimensions:
+        profile = 122 ;
+        depth = 27 ;
+variables:
+        int time_PT1H(profile) ;
+                time_PT1H:standard_name = "time" ;
+                time_PT1H:long_name = "time with frequency of 1 hour" ;
+                time_PT1H:units = "seconds since 1970-01-01T00:00:00+0" ;
+        int depth(depth) ;
+                depth:standard_name = "depth" ;
+                depth:long_name = "depth below surface" ;
+                depth:units = "cm" ;
+        int profile(profile) ;
+                profile:long_name = "Number of profiles in the timeseries" ;
+        float soil_temperature(profile, depth) ;
+                soil_temperature:_FillValue = -999.f ;
+                soil_temperature:long_name = "soil temperature" ;
+                soil_temperature:standard_name = "soil_temperature" ;
+                soil_temperature:units = "degC" ;
+                soil_temperature:coordinates = "time_PT1H" ;
+                soil_temperature:performance_category = "C - The sensor type is assumed to fulfill the WMO/CIMO requirements. Missing measurement for control, rutines for calibration, or maintanence." ;
+
+// global attributes:
+                :title = "Permafrost station VERLEGENHUKEN (SN99927)" ;
+                :featureType = "timeSeriesProfile" ;
+                :summary = "Information from the station VERLEGENHUKEN with MET station number SN99927.  Data are extracted from FROST, the API for the observation database of the Norwegian Meteorological Institute. Data are extracted and converted to CF-NetCDF. In this database, data are received in real time, and quality controlled." ;
+                :keywords = "GCMDSK:EARTH SCIENCE > LAND SURFACE > SOILS > SOIL TEMPERATURE" ;
+                :keywords_vocabulary = "GCMDSK:GCMD Science Keywords:https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/sciencekeywords" ;
+                :license = "https://creativecommons.org/licenses/by/3.0/no/" ;
+                :time_coverage_start = "2023-01-01T00:00:00Z" ;
+                :time_coverage_end = "2023-01-31T18:00:00Z" ;
+                :geospatial_lat_min = 80.0555 ;
+                :geospatial_lat_max = 80.0555 ;
+                :geospatial_lon_min = 16.2433 ;
+                :geospatial_lon_max = 16.2433 ;
+                :creator_name = "MET Arctic Data Center" ;
+                :creator_email = "adc-support@met.no" ;
+                :creator_url = "https://adc.met.no" ;
+                :creator_institution = "Norwegian Meteorological Institute (MET)" ;
+                :contributor = "Øystein Godøy" ;
+                :publisher_name = "Norwegian Meteorological Institute / Arctic Data Centre" ;
+                :publisher_email = "adc-support@met.no" ;
+                :publisher_url = "https://adc.met.no/" ;
+                :publisher_institution = "Norwegian Meteorological Institute" ;
+                :Conventions = "ACDD, CF-1.8" ;
+                :date_created = "2023-10-20T21:43:19Z" ;
+                :history = "2023-10-20T21:43:19Z: Data extracted from the MET Observation Database through Frost and stored as NetCDF-CF" ;
+                :source = "Norwegian Meteorological Institute archive of historical weather and climate data" ;
+                :wigosId = "0-20000-0-01002" ;
+                :MET_Identifier = "SN99927" ;
+                :project = "Arctic PASSION, APPLICATE, SIOS, YOPP" ;
+data:
+
+ time_PT1H = 1672531200, 1672552800, 1672574400, 1672596000, 1672617600, 
+
+...
+----
