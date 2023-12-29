@@ -3,6 +3,8 @@ Discovery metadata will then be directly connected to the data themselves.
 The ACDD elements for proper extraction of discovery metadata are listed below. 
 In addition it is recommended to add the CF global attribute featureType for datasets following the discrete sampling geometry setup according to CF. 
 This is required to have  visualisation of the dataset in the data portal.
+These elements are added as global attributes in the NetCDF file.
+Please make sure they are encoded as strings and not arrays (e.g. xarray will try to create arrays when combining multiple strings).
 
 [[acdd-elements-explained]]
 .ACDD global attributes required to generate discovery metadata (extract from ACDD documentation) in ADC related catalogues.
