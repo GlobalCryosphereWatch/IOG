@@ -1,4 +1,4 @@
-:doctype: book
+:doctype: article
 :pdf-folio-placement: physical
 :media: prepress
 :sectanchors:
@@ -8,6 +8,7 @@
 :sectnumlevels: 6:
 :chapter-label:
 :xrefstyle: short
+:title-page:
 :title-logo-image: image::illustrations/gcw-logo-org.png[]
 = Technical documentation: Guidance for data centres contributing to GCW
 Date: {docdate}
@@ -21,28 +22,24 @@ Date: {docdate}
 |=======================================================================
 |Version |Date |Comment |Responsible
 
+|1.1 |2024-01-xx |Restructured a|Øystein Godøy 
 |1.0 |2023-03-03|Restructured and cleaned. Several intermediate versions are merged herein. a| Øystein Godøy
-
 |0.5 |2017-12-31 |A major rewrite with restructuring of the content,
 rephrasing requirements and addition of information on both the GCW
 Portal and the GCW/SLF software package. a|
-Øystein Godøy
-
+Øystein Godøy +
 Joel Fiddes
-
 |0.4 |2017-09-06 |Minor edits, correction of typos and addition of
 links. a|
-Joel Fiddes
-
+Joel Fiddes +
 Øystein Godøy
-
 |0.3 |2017-03-27 |Minor edits on OPeNDAP and formats. |Øystein Godøy
-
 |0.2 |2016-06-20 |Included comments from Joel Fiddes. |Joel Fiddes,
 Øystein Godøy
-
 |0.1 |2015-11-25 |First draft for internal discussion. |Øystein Godøy
 |=======================================================================
+
+<<<
 
 toc::[]
 
@@ -61,6 +58,7 @@ The GCW Portal is also the interface for GCW metadata to WMO Information System 
 The GCW Portal will also facilitate real time access to data through Internet and WMO GTSfootnote:[For datasets not routed through GTS by other agencies.] as requested by the user community. 
 This require a certain level of interoperability at the data level in addition to at the metadata level. 
 On GTS <<gts>>, WMO formats (BUFR and GRIB) are required and the GCW Portal can transform data into these formats in the dissemination process, provided contributing data centres are following the required standards for documentation and interfaces to data.
+There are however formal constraints that have to be solved before the GCW Portal can disseminate data through GTS.
 
 NOTE: WIS 2.0 is replacing WMO GTS with AMQP/MQTT, how GCW will interact with this is under development.
 
@@ -231,6 +229,9 @@ OGC O&M
 
 [[cryonet]]
 ==== CryoNet
+////
+TODO: Rodica would this still be ok or should we use another concept than CryoNet??
+////
 
 The GCW surface observation network is comprised of a core component (CryoNet). 
 These stations are following GCW measurement practises and have continuous temporal records of a certain length and quality.
@@ -253,25 +254,58 @@ Data centres wishing to contribute to this will also need to follow some minimal
 These requirements are provided below.
 
 [[quick-reference-to-recommended-interfaces-and-standards]]
-=== Quick reference to recommended interfaces and standards
+== Quick reference to recommended interfaces and standards
 
-The text below provides a brief introduction to relevant interfaces for GCW data management. 
-However, in order to establish a manageable system, the number of interfaces has to be a minimum, otherwise the development and maintenance costs of the Portal will be too high and not sustainable. 
-The recommended interfaces for data centres integrating with the GCW Portal are:
+=== Introduction
 
-Discovery metadata::
-Provide discovery metadata enabling users to search for relevant information using ISO-19115 with GCMD Science Keywords <<gcmdkeywords>> for variables or GCMD DIF <<gcmddif>> records through OAI-PMH <<oaipmh>>.
-Data::
-Provide data through OPeNDAP using the CF-1.6 convention or higher. 
-One time series per stream, i.e. do not combine many stations into one structure. 
-This allows streaming of data and handling of both real time and archived data.
+The text below provides a brief introduction to standards for interfaces and documentation that GCW data management relies on. 
+It is worth noting that GCW is not solely relying on WMO standards as these are not widely used in the scientific community primarily providing data.
+In order to establish a manageable system, the number of interfaces has to be a minimum, otherwise the development and maintenance costs of the Portal will be too high and not sustainable. 
+
+Further details on the specific standards are provided below.
+
+=== Quick guide for data centres
+
+[horizontal]
+Data discovery level:: In order to integrate your data catalogue with the GCW Portal, an appropriate interface serving discovery metadata in standardised form is required. 
+This information should be provided using ISO-19115 with GCMD Science Keywords (<<gcmdkeywords>>) for variables or GCMD DIF (<<gcmddif>>) records through OAI-PMH (<<oaipmh>>). 
+It is important that the discovery metadata records contains references (links) to the actual data. 
+These links need to be appropriately identified with the protocol in use. See data access for more details.
+This discovery information is the only information that will be cached in the GCW Portal.
 
 NOTE: Concerning ISO-19115 metadata, both ISO-19115-1 and ISO-19115-2 is supported.
 
-Further details are provided below.
+Data access level:: As noted above the discovery metadata are required to contain references to the actual data. 
+The recommended interface for data is OPeNDAP (<<RD-19>>).
+This allows streaming of data and direct visualisation/manipulation of data in the GCW portal.
+Data can also be served as a blob for download through FTP or HTTP, but this will not be used for visualisation/manipulation of data in the GCW Portal.
+Gridded data benefits from OGC WMS representation as well.
+The OGC WMS representation has to provide a GetCapabilities document per dataset, a service end point with multiple datasets combined in the same GetCapabilities document will not be consumed.
+
+Data documentation level:: CF-NetCDF  following the CF-1.6 convention or higher (<<RD-15>>) is the recommended format and the only format that will be interpreted by the GCW Portal.
+This allows streaming of data and handling of both real time and archived data.
+In situ observations must be encoded following the Discrete Sampling geometry of CF.
+Further information on how to encode data is provided later in the document and more dedicated for the data provider.
+
+=== Quick guide for data providers
+
+The primary task of data providers (scientists being responsible for the data) is to encode data in CF-NetCDF (<<RD-15>>) using CF-1.6 (sample profiles provided elsewhere in the document) or higher following the discrete sampling geometries for in situ data.
+
+IMPORTANT: In order to ensure that your data is integrated in the GCW Portal, pick a data centre that is compliant with the discovery and data access levels requirements of the GCW Portal.
+If such a data centre is lacking, please contact the GCW Data Publication service through the GCW Portal.
+
+[horizontal]
+Granularity:: Provide information for each station separate. 
+Variables that have conflicting dimension (e.g. different temporal resolution or one variable being a point measurement and another a profile) at a station can be separated into separate datasets.
+Do not combine stations in one dataset unless this being a complementary dataset to the individual stations.
+
+CF-NetCDF encoding:: Check out the recommended profiles provided in this document.
+////
+TODO: Add cross reference...
+////
 
 [[interoperability-interfaces]]
-== Interoperability interfaces
+== Interoperability requirements
 
 [[discovery-metadata]]
 === Discovery Metadata
@@ -296,8 +330,8 @@ Regardless of the metadata standard used and the mechanism for transport of the 
 [[introduction-1]]
 ===== Introduction
 
-Discovery metadata should be exposed using a suitable interface that allows information on existing datasets as well as changes to the inventory to be conveyed to the GCW Portal. 
-Suitable interfaces for this are OAI-PMH <<oaipmh>> and OGC CSW <<ogccsw>>. 
+Discovery metadata must be exposed using a suitable interface that allows information on existing datasets as well as changes to the inventory to be conveyed to the GCW Portal. 
+Suitable interfaces for this are currently OAI-PMH <<oaipmh>> and OGC CSW <<ogccsw>>. 
 Support for schema.org and DCAT-AP is in progress.
 Other interfaces may be evaluated, but to ensure a cost effective solution the number of interfaces must be limited.
 
@@ -308,7 +342,7 @@ A number of software solutions supporting this are freely available and a free a
 ===== OAI-PMH
 
 The Open Archives Initiatives Protocol for Metadata Harvesting (OAI-PMH, <<oaipmh>>) is the recommended interface for exchanging metadata with the GCW Portal. 
-It is a cost effective and robust implementation for exchange of metadata between data centres and was extensively used during the International polary year 2006-2008. 
+It is a cost effective and robust implementation for exchange of metadata between data centres and was extensively used during the International Polar Year 2006-2008. 
 It is much cheaper to implement than most alternatives and there are a number of tools available <<oaipmhtools>>. 
 For new implementations https://geonetwork-opensource.org/[GeoNetwork] and https://pycsw.org/[pycsw] are recommended solutions that work pretty well in relation to the GCW Data Portal.
 
@@ -325,14 +359,12 @@ Properly formatted ISO19115 (e.g. the INSPIRE profile) is also supported.
 The Open Geospatial Consortium Catalogue Services for the Web (OGC CSW, <<ogccsw>>) is another standard for exposing the content of a catalogue in a standardised form. 
 As for OAI-PMH records are exposed using XML. 
 Compared to OAI-PMH, OGC CSW is a bit more expensive to implement from the specification although there are several tools supporting it (e.g. GeoNetwork and pycsw as mentioned above). 
-It is the recommended exchange mechanism for metadata within the European framework INSPIRE and will be supported by the GCW Portal although OAI-PMH is recommended from a cost benefit perspective. 
+It is the recommended exchange mechanism for metadata within the European framework INSPIRE and is supported by the GCW Portal although OAI-PMH is recommended from a cost benefit perspective. 
 If OGC CSW is used it must provide ISO-19115/ISO-19139 records through GET. 
 The keyword element has to be populated with relevant GCMD Science Keywords and the purpose of the keyword has to be identified by attributes. 
 
-NOTE: Details on how to interact with a OGC CSW interface has to be discussed when there is a GCW CryoNet station that wants to use this interface.  
-
 NOTE: The GCW Data Portal is harvesting ISO19115/ISO19139 over OGC CSW from a number of data centres. 
-There are challenges and e.g. when harvesting from GeoNetwork, but these can be sorted out in a dialogue.
+There are challenges and e.g. when harvesting from GeoNetwork, but these can be sorted out through a dialogue between the data centre and the GCW Portal.
 
 [[other-1]]
 ===== Other
@@ -344,6 +376,8 @@ NOTE: Harvesting using schema.org according to ESIP's science on schema org is c
 
 [[structures-for-discovery-metadata]]
 ==== Structures for discovery metadata
+
+===== Introduction
 
 The GCW Data Portal is consuming discovery metadata that are describing the data. 
 The information model used by the GCW Data Portal is indicated in <<mmd-uml>>. 
@@ -361,79 +395,6 @@ Further mappings are under development.
 
 include::discovery-model-mapping.adoc[]
 
-////
-In order to make the portal work properly and to ensure integration with WMO systems like WIS, the following discovery metadata elements are required ().
-
-Table 2: GCW discovery metadata elements, purpose and mapping to DIF and
-ISO19115. Status is one of Mandatory (M), Optional (O) or Recommended
-(R).
-
-[cols=",,,,",]
-|=======================================================================
-|Dataset Identifier |A unique ID for the dataset issued by the
-responsible data centre. |M |Entry_ID |MD_Metadata> MD_Reference>
-MD_Identifier
-
-|Dataset Title |A brief descriptive title of the dataset suitable for
-listing purposes. |M |Entry_Title |CI_Citation
-
-|Dataset Abstract |A brief description of the data set along with the
-purpose of the data. This allows potential users to determine if the
-data set is useful for their needs. |M |Summary |MD_Metadata>
-MD_Identification
-
-|Dataset Parameters |Specification of keywords from a controlled
-vocabulary describing the content of the dataset and that consumers can
-use to identify the dataset. |M |Parameters |MD_Identification>
-MD_Keywords
-
-|Dataset Temporal Coverage |Specification of the start and stop dates of
-the dataset. If currently operating, the stop date is empty. |M
-|Temporal Coverage |EX_Extent> EX_TemporalExtent
-
-|Dataset Spatial Coverage |A bounding box for the data specifying the
-location of the dataset using latitudes and longitudes. Latitudes are
-positive northwards and longitudes eastwards. |M |Spatial Coverage
-|EX_Extent> EX_GeographicBoundingBox
-
-|Dataset Use Constraints |A description of what a consumer can do with
-the data after accessing them. In order to protect intellectual property
-rights (e.g. non commercial use). |M |Use Constraints |MD_Constraints>
-MD_LegalConstraints
-
-|Dataset Creator |Details on the institution and/or people responsible
-for generation of the dataset. |M |Personnel |CI_Citation>
-CI_ResponsiblePartyInfo
-
-|Dataset Progress |A specification of whether the data production is
-ongoing, complete or planned. |R |Data Set Progress |MD_Identification
-
-|Dataset Operational Status | |O | |
-
-|Dataset Access |Internet links to the data. The type of service behind
-a link need to be identified by using proper keywords. GCMD content type
-keywords are required. |M |Related URL |CI_Citation> CI_OnlineResource
-
-|Dataset Related Information |Internet link to project or site specific
-websites providing context information for the dataset. |R |Related URL
-|CI_Citation> CI_OnlineResource
-
-|Dataset Quality |A freetext formulation on the quality of the data.
-E.g. whether data has been quality controlled or not. |R |Quality |
-
-|Data Centre |The Data Center, organisation or institution responsible
-for maintaining and publishing the data. This is not to be confused with
-the Dataset Creator. The information required covers relevant contact
-information as well as URL to the website. |M |Data Center
-|CI_ResponsiblePartyInfo
-
-|Discovery Metadata Last Revision |Specification of the creation date
-for the discovery metadata or the last revision. The form YYYY-MM-DD
-must be used. |M |Last DIF Revision Date |MD_Metadata> CI_Date > CI_Date
-|=======================================================================
-////
-
-
 ===== ISO19115
 
 The WMO Core Profile <<wmcp>> is a profile of the ISO-19115 metadata standard and is recommended for use within GCW for discovery metadata. 
@@ -446,7 +407,10 @@ This service is under reimplementation as of early 2023.
 
 NOTE: GCW is actively engaged with WIGOS to establish a dedicated controlled vocabulary for GCW purpose.
 
-NOTE: Need to add information on how to handle controlled vocabualries, both for keywords and for URLs, as well as how to convey information about personnel related to the dataset and the host data centre. 
+NOTE: Need to add information on how to handle controlled vocabularies, both for keywords and for URLs, as well as how to convey information about personnel related to the dataset and the host data centre. 
+
+NOTE: WMO is moving towards OGC API Records as the discovery metadata standard for WIS 2.0.
+This is yet not supported for harvesting in the GCW Portal.
 
 ===== GCMD DIF
 
@@ -456,14 +420,12 @@ NOTE: The GCW Data Portal consumes DIF versions V9.x and 10.x.
 
 ===== Other
 
-This section has to be extended with further information on both WIS and WIGOS metadata. 
-There are still some issues under consideration for the practical implementation of the latter. 
-These issues has to be discussed within the GCW community and input provided to the Task Team on WIGOS Metadata.
+Support for ESIP's Science on schema.org is under development.
 
 [[data]]
-== Data
+=== Data encoding and access
 
-=== Background
+==== Background
 
 While interoperability at the metadata level is important for GCW, international exchange of observations of the cryosphere is vital to success of GCW. 
 This implies both exchange of archived data as well as exchange of real time information. 
@@ -477,41 +439,41 @@ Application of a common data model simplifies integration and inter-comparison o
 Application of NetCDF, <<netcdf>> as the file format, utilising the Climate and Forecast, <<cfconventions>> convention and serving data through OPeNDAP, <<opendap>> simplifies the issue of integration and combination of data through the Common Data Model, <<cdm>>.
 
 [[exchange-mechanisms-for-data]]
-=== Exchange mechanisms for data
+==== Exchange mechanisms for data
 
 [[introduction-2]]
-==== Introduction
+===== Introduction
 
 Traditionally data has been exchanged using FTP in various file formats. 
 Modern technology opens up for other mechanisms for transporting data. 
 Many technologies share some features, but there are differences in complexity and cost of implementation.
 
 [[httpftp]]
-==== HTTP/FTP
+===== HTTP/FTP
 
 This is the easiest manner to support data exchange, but it has limitations for large datasets as well as there is no common data model or standardisation of file formats. 
-Often data are served in various ASCII formats that differ from data centre to data centre without any standardised metadata simplifying the process of understanding and using the data. 
+Often data are served in various ASCII formats that differ from data centre to data centre (or data provider to provider) without any standardised metadata simplifying the process of understanding and using the data. 
 Integration of data from various data centres usually takes much human effort. 
-This is simplified if standardised formats like WMO BUFR or WMO Grib are used, but also for these additional information is required to fully understand the content. 
-Data in NetCDF following the Climate and Forecast Convention is self explainable and connects to the Common Data Model.
+This is simplified if standardised formats like WMO BUFR or WMO GRIB are used, but also for these additional information is required to fully understand the content. 
+Data in NetCDF following the Climate and Forecast Convention is self explainable and use the Common Data Model.
 
 Segmentation of real time data has to be supported by the contributing data centre. 
 FTP is not recommended for GCW purposes, HTTP can be the fallback mechanism, but in order to properly identify the physical files in a time series, more discovery metadata is required than if OPeNDAP is used. 
 Anyway, data must be presented in a self explaining format, site or organisation specific formats are not useful.
 
-NOTE: Data served through HTTP/FTP should be referenced as individual files in the discovery metadata. 
-If data access is through a web page, this should be conveyed in discovery metadata as a project web page. 
+NOTE: Data served through HTTP/FTP should be referenced as individual links per file in the discovery metadata. 
+If data access is through a web page, this must be conveyed in discovery metadata as a project web page. 
 The GCW Data Portal can not do anything but referring the user to this web page. 
 There is no linkage between data served this way and the operational exchange of data within WMO.
 
-==== OPeNDAP
+===== OPeNDAP
 
 The Data Access Protocol, <<opendap>> simplifies integration of data from various data centres as it is utilising the Common Data Model, provided input data are encoded according to Climate and Forecast conventions use metadata follows the data and the application of a data stream removes the step of downloading a file and keeping track of this while working on the data. It also allows segmentation of data in variable space and space and time and it is
 RESTfulfootnote:[http://apievangelist.com/2014/12/05/history-of-apis-noaa-apis-have-been-restful-for-over-20-years/].
 
 OPeNDAP is the recommended way to exchange data within GCW. 
 It allows access to both archived and real time data. 
-If OPeNDAP is supported, the GCW portal can extract the most recent observations from a time series and ingest these in WMO GTS if required by the user community. 
+When OPeNDAP is used, the GCW portal can extract the most recent observations from a time series and ingest these in WMO GTS if required by the user community. 
 The data served through OPeNDAP has to be mapped to the Climate and Forecast convention 1.6 or higher. 
 Further details on how to encode data in according to this convention is provided in the NetCDF description (see <<CF-NetCDF>>).
 
@@ -522,7 +484,7 @@ OPeNDAP also minimises the overhead as no files are moved, the client connects t
 
 NOTE: The GCW Data Portal is working to enable extraction of real time data from OPeNDAP served data when these are presented according to the NetCDF Climate and Forecasts Conventions for discrete sampling geometries.
 
-==== OGC WFS
+===== OGC WFS
 
 OGC Web Feature Service (WFS) is a mechanism allowing subsetting of information, but it relies on transferring data as files in Geography Markup Language (GML). 
 There is no standardised form for use metadata in GML. GML behaves like NetCDF without the Climate and Forecast convention. 
@@ -532,7 +494,7 @@ NOTE: OGC WFS is not supported by the GCW Portal, but OGC EDR is under evaluatio
 
 NOTE: To be updated with information about OGC API and WIS 2.0 perspectives.
 
-==== OGC WCS
+===== OGC WCS
 
 OGC Web Coverage Service (WCS) is similar to OGC WFS but focus on information representing phenomena that varies in time and space. 
 Like WFS it transfers files, but the number of file formats may be extended and support e.g. GML, GeoTIFF, HDF-EOS, NetCDF. 
@@ -542,22 +504,23 @@ NOTE: The GCW Data Portal does not support OGC WCS.
 
 NOTE: To be updated with information about OGC API and WIS 2.0 perspectives.
 
-==== OGC WMS map projections
+===== OGC WMS
 
-OGC Web Mapping Service (WMS) is useful for visualising maps etc. It provides a graphical representation of data but no access to data in itself. 
+OGC Web Mapping Service (WMS) is useful for visualising gridded data. 
+It provides a graphical representation of data but no access to data in itself. 
 
 NOTE: The WMS service must provide a GetCapabilities document per dataset, not combining multiple datasets into the same GetCapabilities document for the GCW Portal to be able to consume the OGC WMS service.
 
-Each WMS server must support the following map projections:
+The WMS server must support the following map projections (to enable consistency between data providers):
 
 1.  EPSG:32661: WGS 84 / UPS North
 2.  EPSG:4326: WGS 84
 3.  EPSG:3408: NSIDC EASE-Grid North
 4.  EPSG:3410: NSIDC EASE-Grid Global
 
-=== File formats
+==== File formats
 
-==== Introduction
+===== Introduction
 
 Most of the exchange mechanisms mentioned above transfer files. 
 In order to properly understand the content of a file some use metadata is usually necessary. 
@@ -565,38 +528,38 @@ File formats that embed use metadata (and also discovery metadata) are preferred
 NetCDF in itself is not self describing, but NetCDF following the Climate and Forecast Convention (CF) is self describing. 
 Adding the NetCDF Attribute Convention for Dataset Discovery embeds full discovery metadata (e.g. originator/PI, constraints etc.) in the file. 
 
-NOTE: The NetCDF/CF format is strongly recommended in most cases due to widespread use in the scientific community and ease of implementation. 
+NOTE: The NetCDF/CF format is strongly recommended in most cases due to widespread use in the scientific community, ease of implementation and utilisation of a clear and consistent data model allowing integration of data across providers. 
 
 Some data may not fit into the model of NetCDF, but with the CF 1.8 (or higher) convention there is now support for standardised descriptions of gridded data (including satellite swath data), time series at stations, time series of profiles at stations, timeseries at moving stations (trajectories) and geometries which formerly was kept in KML, ESRI Shapefiles or similar. 
 The NetCDF container is thus providing a standardised encoding for most of the data GCW is concerned with as long as the CF convention version 1.8 or higher is used.
 
-==== WMO BUFR
+===== WMO BUFR
 
 Binary Universal Form for the Representation of meteorological data (BUFR) is a binary data format maintained by WMO. 
 Its main purpose is operational exchange of real time data and it is adapted for robust transfer on varying bandwidth connections. 
-Data that are supposed to be exchanged using WMO Global Telecommunication System (GTS) should be encoded in WMO BUFR. 
+Data that are supposed to be exchanged using WMO Global Telecommunication System (GTS) must be encoded in WMO BUFR. 
 BUFR is a table driven file format, implying that the format is not self explaining and the user has to have the correct table to understand the content.
 
-If CryoNet sites are providing observational data according to the NetCDF/CF convention over OPeNDAP, the GCW Portal will, if requested, create BUFR files and submit these onto GTS if required by the GCW Community.footnote:[provided data come in a harmonised form (i.e. NetCDF-CF according to the discrete sampling geometries) and there is a BUFR template for the data in question.] 
-Furthermore, currently the GCW Portal converts GTS circulated BUFR to NetCDF/CF, this functionality of moving between NetCDF and BUFR will be extended and incorporated as a transformation service in the GCW Portal as well.
+When CryoNet sites are providing observational data according to the NetCDF/CF convention over OPeNDAP, the GCW Portal will, if requested, create BUFR files and submit these onto GTS if required by the GCW Community.footnote:[provided data come in a harmonised form (i.e. CF-NetCDF according to the discrete sampling geometries) and there is a BUFR template for the data in question.] 
+Furthermore, currently the GCW Portal converts GTS circulated BUFR to CF-NetCDF, this functionality of moving between NetCDF and BUFR will be extended and incorporated as a transformation service in the GCW Portal as well.
 
-==== WMO Grib
+===== WMO Grib
 
-GRIdded Binary (GRIB) is a binary format maintained by WMO. As BUFR, this format is best suited for real time exchange over WMO GTS. 
+GRIdded Binary (GRIB) is a binary format maintained by WMO. 
+As BUFR, this format is best suited for real time exchange over WMO GTS. 
 It is also a table driven format like BUFR, having the same limitations. 
-The GCW Portal has developed functionality to map between GRIB and NetCDF/CF, although this is yet not fully included in the GCW Portal yet.
 
 Depending on the type of data provided, GCW Data Portal may help converting to/from CF-NetCDF and WMO GRIB.
 
-==== CF-NetCDF
+===== CF-NetCDF
 
 This ensures a self explaining dataset where structure and content are encoded using an accepted standard that has impact beyond the original community. 
-It can be used to handle gridded data, time series, profiles and trajectories in standardised manner if encoded according to Climate and Forecast conventions <<cfconventions>>. 
+It can be used to handle gridded data, time series, profiles and trajectories in standardised manner if encoded according to Climate and Forecast conventions (<<cfconventions>>). 
 Furthermore, it includes semantics in a manner which can be used to cross walk content with other structured data descriptions.
 
 Usage of NetCDF/CF version 1.6 or higher is recommended for gridded and observational data. 
 If outline data are handled, version 1.8 or higher is recommended. 
-It is also recommended to add ACDD<<acdd>> global attributes to the CF-NetCDF files in order to incorporate the discovery metadata in the actual data.  
+It is also recommended to add ACDD (<<acdd>>) global attributes to the CF-NetCDF files in order to incorporate the discovery metadata in the actual data.  
 
 NOTE: For details on ACDD elements to add please check out the guidance available at https://adc.met.no/node/4[Arctic Data Centre].
 
@@ -608,7 +571,9 @@ If help is required to transform observations in non standard file formats like 
 NOTE: The GCW Open Source Software Stack, <<gcwsoftwarestack>> will support conversion of data to CF-NetCDF. 
 Work is in progress to offer this as a web service.
 
-==== JSON/GeoJSON
+Specific CF-NetCDF profiles for GCW is provided in <<cfprofiles>>.
+
+===== JSON/GeoJSON
 
 JavaScript Object Notation (JSON) and the geographical extension of this is similar to NetCDF in that it is a container lacking standardised metadata. 
 The consequence is that combination of data from various sources is not straightforward.  
@@ -619,7 +584,7 @@ NOTE: JSON/GeoJSON is currently not supported by the GCW Portal, but do expect t
 This will probably be part of WIS 2.0, so will come at some point. Will need to update the document.
 ////
 
-==== XML
+===== XML
 
 Extensible Markup Language (XML) is similar to NetCDF in that it is a container lacking standardised metadata describing its contents. 
 There are many variants of XML and the overhead is large. 
@@ -627,38 +592,42 @@ The consequence is that combination of data from various sources is not straight
 
 NOTE: XML is not supported by the GCW Portal.
 
-==== CSV
+===== CSV
 
 CSV (comma separated files) is often used to exchange data within certain communities.
 This is a container like the ones mentioned above that doesn't enforce standardised structures which services could be built on top and is thus not supported. 
+The GCW Portal is not handling CSV files as input data, except through the GCW Data Publication Service.
 
-NOTE: Although the GCW Data Portal cannot consume CSV files, the data protal has functionality to dump data from CF-NetCDF into CSV files to simplify the data consumption.
+NOTE: Although the GCW Data Portal cannot consume CSV files, the data portal has functionality to dump data from CF-NetCDF into CSV files to simplify the data consumption.
 
 [[gcwsoftwarestack]]
 === The GCW/SLF Open Source Software Package
 
 [[background-4]]
 ==== Background
+////
+TODO: Need to review and update links...
+////
 
 WMO Global Cryosphere Watch (GCW) is depending on a number of observing stations (CryoNet stations) for feeding the GCW value chain with observations. GCW has a requirement for both real time and archived data. 
 In the period 2015-2017, GCW has been working with WSL/SLF to set up interoperability between the WSL/SLF data centre being responsible for one of the CryoNet stations. 
 WSL/SLF has kindly agreed to make the software stack they have developed available for a wider community.
+This software is also the engine in the GCW Data Publication Service which supports data providers not capable of documenting and publishing their data according to the requirements of GCW.
 
-The following is a brief description of several software tool used at the https://www.wsl.ch/en/about-wsl/organization/locations/slf-davos.html[WSL Institute for Snow and Avalanche Research (SLF)] to processes and manage data at various stages of the “datacycle” from sensors to published dataset. 
+The following is a brief description of several software tool used at the https://www.wsl.ch/en/about-wsl/locations/slf-davos/[WSL Institute for Snow and Avalanche Research (SLF)] to processes and manage data at various stages of the “datacycle” from sensors to published dataset. 
 All projects are available under open source licenses.
 
 The software package is designed to support the value chain provided in
 <<cryonet-value-chain>>.
 
-[[cryonet-value-chain, {figure-caption}{counter:refnum}]]
+[[cryonet-value-chain]]
 .The GCW CryoNet value chain.
 image::illustrations/gcw-cryonet-valuechain.png[align="center"]
 
 [[overview]]
 ==== Overview
 
-The GCW/SLF software package <<cryonet-software-stack>> consists of several modules. 
-The purpose of these modules is listed below and how the components work together to support the purpose of the GCW portal is illustrated in .
+The GCW/SLF software package consists of several modules. 
 
 The core element in the software package is the data preprocessor MeteoIO that takes data from the sensor, through a quality control procedure into standardised NetCDF/CF files which can be published.
 
@@ -669,26 +638,11 @@ It can handle both gridded and time series data and has various functions for cl
 
 MeteoIO git: https://models.slf.ch/p/meteoio/
 
-////
-Removed as no longer in use by SLF, Øystein Godøy, METNO/FOU, 2023-03-03 
-
-In order to publish discovery metadata for the data prepared through MeteoIO, software developed through the ENVIDAT project is used.  
-EnviDat is the WSL/SLF main CKAN based dataportal and metadata repository. Core CKAN has been extended to cover specific requirements of research data management. 
-These include an OAI-PMH server, DOI publishing and supporting metadata standards. 
-The advantage of CKAN is that it provides a robust and intuitive UI for structured metadata submission. 
-This enables large parts of the data management process to be decentralised to the submitter.
-
-CKAN project: https://ckan.org/
-
-EnviDat extensions are here: https://github.com/EnviDat
-
-[[cryonet-software-stack, {figure-caption}{counter:refnum}]]
-.An overview of the main components of the GCW Software package developed by WSL/SLF.
-image::illustrations/cryonet-software-stack.png[] 
-////
-
 [[requirements]]
 == Requirements
+////
+TODO: To move to a SRD??
+////
 
 The following chapter is listing a number of requirements related to the information provided above. 
 In the long term this information may be extracted into a separate document, but in order to simplify the process it is listed herein for now.
@@ -734,3 +688,10 @@ Data *should* be encoded according to the Climate and Forecast Convention versio
 Requirement 21:: OGC WFS and OGC WCS *should* not be used for data exchange.
 Requirement 22:: NetCDF following the Climate and Forecast Convention with NetCDF Attribute Convention for Dataset Discovery **should **be used as file
 format.
+
+[appendix]
+== GCW CF-NetCDF profiles
+
+=== Background
+
+FIXME
