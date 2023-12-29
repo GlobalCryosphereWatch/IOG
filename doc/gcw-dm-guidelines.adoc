@@ -694,4 +694,18 @@ format.
 
 === Background
 
-FIXME
+The Climate and Forecast Conventions provides guidance on how to use the NetCDF file format in a consistent and self describing manner.
+However, following the CF conventions there are meny degrees of freedom on how to encode data.
+In this chapter GCW provides recommendations on how to use the CF conventions for various types of data.
+In addition a chapter is dedicated to ACDD elements that allows GCW to generate discovery metadata directly from the datasets, e.g. in the context of the GCW Data Publication Service.
+
+Granularity is important considering efficient reuse of data. 
+In this context more flexibility for data consumers is retained if stations are submitted stand alone instead of bundled in one file.
+
+=== ACDD
+
+include::acdd.adoc[]
+
+=== A weather station
+
+=== A permafrost station
